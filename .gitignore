@@ -1,8 +1,6 @@
-*.iml
-*.apk
-/.idea/
-/target/
-/build/
+node_modules
+build
+npm-debug.log
+.env
 .DS_Store
-.externalNativeBuild
-
+package-lock.json

@@ -1,7 +1,12 @@
-const axios = require('axios');
-const StockModel = require('../models/stockModel');
-const redisManager = require('./redisManager');
-const utils = require('./utils');
+const axios = require('axios')
+const StockModel = require('../models/stockModel').StockModel
+const FullStockModel = require('../models/stockModel').FullStockModel
+const IndexModel = require('../models/indexModel')
+const CryptoModel = require('../models/cryptocurrencyModel')
+const CurrencyModel = require('../models/currencyModel')
+
+const redisManager = require('./redisManager')
+const utils = require('./utils')
 
 const urls = utils.urls
 const keys = utils.keys 
@@ -9,13 +14,24 @@ const keys = utils.keys
 var metalSlugs = ["SEKE_BAHAR", "SEKE_EMAMI", "SEKE_NIM", "SEKE_ROB", "SEKE_GERAMI", "TALA_MESGHAL", "TALA_24", "TALA_18", "ONS"]
 var extractMetals = (currencies) => {
   var metals = currencies.filter(obj => metalSlugs.includes(obj.slug) || obj.slug.length == 0)
-  return metals
+  var temps = metals.map(i => { return CurrencyModel(i)})
+  return temps
 }
 
 var extractCurrencies = (allcurrencies) => {
     var currencies = allcurrencies.filter(obj => (!metalSlugs.includes(obj.slug)) && obj.slug.length != 0)
-    return currencies
+    var temps = currencies.map(i => { return CurrencyModel(i)})
+    return temps
 }
+
+var indexesNeeded = [
+  "شاخص كل",
+  "شاخص كل (هم وزن)",
+  "شاخص قيمت(وزني-ارزشي)",
+  "شاخص قيمت (هم وزن)",
+  "شاخص صنعت",
+  "شاخص50شركت فعالتر"
+]
 
 var mapingStockList = (stocks) => {
     var array = stocks.map( i => { 
@@ -29,6 +45,40 @@ var mapingStockList = (stocks) => {
         )
       })
     return array
+}
+
+var mapingCryptoList = (cryptos) => {
+  var array = cryptos.map( i => { 
+      return CryptoModel(
+          i.symbol,
+          i.name,
+          i.icon,
+          i.price,
+          i.change_percent_24h,
+          i.market_cap,
+      )
+    })
+  return array
+}
+
+
+var mapingIndexList = (indexes) => {
+  var temps = []
+  for (var i in indexesNeeded) {
+    var index = indexes.find( o => o.name === indexesNeeded[i])
+    temps.push(index)
+  }
+  var array = temps.map( i => { 
+      return IndexModel(
+          i.name,
+          i.value,
+          i.change,
+          i.percent,
+          i.max,
+          i.min,
+      )
+    })
+  return array
 }
 
 var getCurrencies = () => {
@@ -53,8 +103,8 @@ var getIndexes = () => {
     url: urls.indexes
   }).then(function (response) {
     var indexes = JSON.parse(JSON.stringify(response.data))
-    redisManager.cacheData(keys.indexes, indexes)
-    console.log('indexes count: '+ indexes.length)
+    var tempIndexes = mapingIndexList(indexes)
+    redisManager.cacheData(keys.indexes, tempIndexes)
   }).catch(function (error) {
     console.log(error);
   })
@@ -66,7 +116,8 @@ var getCryptos = () => {
     url: urls.cryptos
   }).then(function (response) {
     var cryptos = JSON.parse(JSON.stringify(response.data)).data
-    redisManager.cacheData(keys.cryptos, cryptos)
+    var tempCryptos = mapingCryptoList(cryptos)
+    redisManager.cacheData(keys.cryptos, tempCryptos)
     console.log('cryptos count: '+ cryptos.length)
   }).catch(function (error) {
     console.log(error);
@@ -80,8 +131,11 @@ var getStocks = () => {
   }).then(function (response) {
     var stocks = JSON.parse(JSON.stringify(response.data))
     var stockList = mapingStockList(stocks)
+    var stocksWithDetails = stocks.map( i => { 
+      return FullStockModel(i)
+    })
     redisManager.cacheData(keys.stocksList, stockList)
-    redisManager.cacheData(keys.stocks, stocks)
+    redisManager.cacheData(keys.stocks, stocksWithDetails)
     console.log('stocks count: '+ stocks.length)
   }).catch(function (error) {
     console.log(error);

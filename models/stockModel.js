@@ -1,7 +1,7 @@
 const StockModel = (name, namad_code, state, final_price, final_price_change, final_price_change_percent) => {
     return {
         name: name,
-        namad_code: namad_code,
+        symbol_code: namad_code,
         state: state,
         final_price: final_price,
         final_price_change: final_price_change,
@@ -14,7 +14,7 @@ const FullStockModel = (i) => {
     name: i.name,
     market: i.market,
     instance_code: i.instance_code,
-    namad_code: i.namad_code,
+    symbol_code: i.namad_code,
     industry_code: i.industry_code,
     industry: i.industry,
     state: i.state,

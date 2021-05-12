@@ -39,6 +39,7 @@ var mapingStockList = (stocks) => {
     return stocks.map(i => {
         return StockModel(
             i.name,
+            i.full_name,
             i.namad_code,
             i.state,
             i.final_price,

@@ -9,19 +9,21 @@ const redisManager = require('./redisManager')
 const utils = require('./utils')
 
 const urls = utils.urls
-const keys = utils.keys 
+const keys = utils.keys
 
-var metalSlugs = ["SEKE_BAHAR", "SEKE_EMAMI", "SEKE_NIM", "SEKE_ROB", "SEKE_GERAMI", "TALA_MESGHAL", "TALA_24", "TALA_18", "ONS"]
+const metalSlugs = ["SEKE_BAHAR", "SEKE_EMAMI", "SEKE_NIM", "SEKE_ROB", "SEKE_GERAMI", "TALA_MESGHAL", "TALA_24", "TALA_18", "ONS"];
 var extractMetals = (currencies) => {
-  var metals = currencies.filter(obj => metalSlugs.includes(obj.slug) || obj.slug.length == 0)
-  var temps = metals.map(i => { return CurrencyModel(i)})
-  return temps
+  var metals = currencies.filter(obj => metalSlugs.includes(obj.slug) || obj.slug.length === 0)
+    return metals.map(i => {
+      return CurrencyModel(i)
+  })
 }
 
 var extractCurrencies = (allcurrencies) => {
-    var currencies = allcurrencies.filter(obj => (!metalSlugs.includes(obj.slug)) && obj.slug.length != 0)
-    var temps = currencies.map(i => { return CurrencyModel(i)})
-    return temps
+    var currencies = allcurrencies.filter(obj => (!metalSlugs.includes(obj.slug)) && obj.slug.length !== 0)
+    return currencies.map(i => {
+        return CurrencyModel(i)
+    })
 }
 
 var indexesNeeded = [
@@ -34,7 +36,7 @@ var indexesNeeded = [
 ]
 
 var mapingStockList = (stocks) => {
-    var array = stocks.map( i => { 
+    return stocks.map(i => {
         return StockModel(
             i.name,
             i.namad_code,
@@ -43,12 +45,11 @@ var mapingStockList = (stocks) => {
             i.final_price_change,
             i.final_price_change_percent,
         )
-      })
-    return array
+    })
 }
 
 var mapingCryptoList = (cryptos) => {
-  var array = cryptos.map( i => { 
+    return cryptos.map(i => {
       return CryptoModel(
           i.symbol,
           i.name,
@@ -57,8 +58,7 @@ var mapingCryptoList = (cryptos) => {
           i.change_percent_24h,
           i.market_cap,
       )
-    })
-  return array
+  })
 }
 
 
@@ -68,7 +68,7 @@ var mapingIndexList = (indexes) => {
     var index = indexes.find( o => o.name === indexesNeeded[i])
     temps.push(index)
   }
-  var array = temps.map( i => { 
+    return temps.map(i => {
       return IndexModel(
           i.name,
           i.value,
@@ -77,8 +77,7 @@ var mapingIndexList = (indexes) => {
           i.max,
           i.min,
       )
-    })
-  return array
+  })
 }
 
 var getCurrencies = () => {

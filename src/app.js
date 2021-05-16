@@ -3,7 +3,7 @@ const cron = require('node-cron');
 const express = require('express');
 const apiCall = require('./apiCall');
 
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT || 3000
 
 var app = express()
 

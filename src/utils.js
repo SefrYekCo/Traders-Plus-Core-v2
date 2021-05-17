@@ -7,13 +7,15 @@ const keys = {
     cryptos: 'cryptos',
     stocks: 'stocks',
     stocksList: 'stocksList',
+    faraBourse: 'faraBourse'
 }
   
 const urls = {
     currencies: baseURL + "&currency",
     indexes: baseURL + "&market=indices",
     cryptos: baseURL + "&crypto_v2=all",
-    stocks: baseURL + "&all&type=0", 
+    stocks: baseURL + "&all&type=0",
+    faraBourse: baseURL + "&market=market_farabourse"
 }
 
 module.exports = {

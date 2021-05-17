@@ -7,12 +7,13 @@ const PORT = process.env.PORT || 3000
 
 var app = express()
 
-cron.schedule('*/1000 * * * * *', function() {
+cron.schedule('*/10 * * * * *', function() {
     var currenct = new Date()
     apiCall.getCryptos()
     apiCall.getIndexes()
     apiCall.getStocks()
     apiCall.getCurrencies()
+    apiCall.getFaraBourse()
     console.log('---------------------');
     console.log('Running Cron Job  --  ' + currenct.getHours() + ':' + currenct.getMinutes() + ':' + currenct.getSeconds());
 });

@@ -142,11 +142,51 @@ var getStocks = () => {
   })
 }
 
+var getFaraBourse = () => {
+  axios({
+    method: 'get',
+    url: urls.faraBourse
+  }).then(function (response) {
+    var json = JSON.parse(JSON.stringify(response.data))
+    var faraBourse = json['fara-bourse']
+    var farabourseModel = IndexModel(
+      "شاخص فرابورس",
+      faraBourse.index.replace(",", ""),
+      faraBourse.index_change.replace(",", ""),
+      faraBourse.index_change_percent.replace(",", ""),
+      "0",
+      "0"
+    )
+    redisManager.getCachedData(keys.indexes, (status, indexes) => {
+      if (status) {
+        console.log('Indexes: ' + indexes)
+        var allIndexes = []
+        allIndexes = JSON.parse(indexes)
+        console.log('allIndexes before: ' + allIndexes.length)
+
+        for( var i = 0; i < allIndexes.length; i++){ 
+          if ( allIndexes[i].name === "شاخص فرابورس") {
+            allIndexes.splice(i, 1);
+          }
+        }
+        console.log('allIndexes after: ' + allIndexes.length)
+        allIndexes.push(farabourseModel)
+        redisManager.cacheData(keys.indexes, allIndexes)
+      }
+    })
+    
+  }).catch(function (error) {
+    console.log(error);
+  })
+}
+
+
 module.exports = {
 
     getCurrencies,
     getIndexes,
     getCryptos,
-    getStocks
+    getStocks,
+    getFaraBourse
 
 }

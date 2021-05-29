@@ -1,12 +1,13 @@
-const StockModel = (name, full_name, namad_code, state, final_price, final_price_change, final_price_change_percent) => {
+const StockModel = (name, full_name, namad_code, instance_code, state, final_price, final_price_change, final_price_change_percent) => {
     return {
-        name: name,
-        full_name: full_name,
-        symbol_code: namad_code,
-        state: state,
-        final_price: final_price,
-        final_price_change: final_price_change,
-        final_price_change_percent: final_price_change_percent,
+        name: String(name),
+        full_name: String(full_name),
+        symbol_code: String(namad_code),
+        instance_code: String(instance_code),
+        state: String(state),
+        final_price: String(final_price),
+        final_price_change: parseInt(final_price_change),
+        final_price_change_percent: String(final_price_change_percent),
       }
 }
 

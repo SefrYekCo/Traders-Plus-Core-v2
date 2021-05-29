@@ -41,6 +41,7 @@ var mapingStockList = (stocks) => {
             i.name,
             i.full_name,
             i.namad_code,
+            i.instance_code,
             i.state,
             i.final_price,
             i.final_price_change,

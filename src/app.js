@@ -11,9 +11,10 @@ cron.schedule('*/10 * * * * *', function() {
     var currenct = new Date()
     apiCall.getCryptos()
     apiCall.getIndexes()
-    apiCall.getStocks()
+    //apiCall.getStocks()
     apiCall.getCurrencies()
     apiCall.getFaraBourse()
+    apiCall.getStocksV2()
     console.log('---------------------');
     console.log('Running Cron Job  --  ' + currenct.getHours() + ':' + currenct.getMinutes() + ':' + currenct.getSeconds());
 });

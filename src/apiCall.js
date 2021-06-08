@@ -6,6 +6,7 @@ const CryptoModel = require('../models/cryptocurrencyModel')
 const CurrencyModel = require('../models/currencyModel')
 
 const redisManager = require('./redisManager')
+const irStock = require('./irStocksAPI')
 const utils = require('./utils')
 
 const urls = utils.urls
@@ -40,7 +41,7 @@ var mapingStockList = (stocks) => {
         return StockModel(
             i.name,
             i.full_name,
-            i.namad_code,
+            i.symbol_code,
             i.instance_code,
             i.state,
             i.final_price,
@@ -143,6 +144,32 @@ var getStocks = () => {
   })
 }
 
+function getStocksV2  () {
+  irStock.getStocks().then(data => {
+    let dataParts = data.split('@')
+    if (dataParts.length < 5) {
+      reject('Wrong data format')
+      console.log('Wrong data format')
+      return
+    }
+    let stocks = dataParts[2].split(';')
+    let stockObjects = stocks.map(stock => {
+      stockProps = stock.split(',')
+      // invalid record
+      if (stockProps.length < 15) return
+      return FullStockModel(stockProps)
+    })
+    //stockObjects = stockObjects.filter(stock => stock)
+    console.log('stocks count: ' + stockObjects.length)
+    let stockList = mapingStockList(stockObjects)
+    redisManager.cacheData(keys.stocksList, stockList)
+    redisManager.cacheData(keys.stocks, stockObjects)
+  }).catch(err =>{
+    console.log('error: ' + `${err.message}`)
+    })
+}
+
+
 var getFaraBourse = () => {
   axios({
     method: 'get',
@@ -188,6 +215,7 @@ module.exports = {
     getIndexes,
     getCryptos,
     getStocks,
+    getStocksV2,
     getFaraBourse
 
 }

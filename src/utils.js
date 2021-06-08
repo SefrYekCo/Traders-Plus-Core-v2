@@ -1,5 +1,5 @@
 const baseURL =  'https://www.sourcearena.ir/api/?token=75243df886bbfb64e6962751a91a7873' 
-
+const tseBaseURL = "http://tsetmc.com/"
 const keys = {
     currencies: 'currencies',
     metals: 'metals',
@@ -15,7 +15,9 @@ const urls = {
     indexes: baseURL + "&market=indices",
     cryptos: baseURL + "&crypto_v2=all",
     stocks: baseURL + "&all&type=0",
-    faraBourse: baseURL + "&market=market_farabourse"
+    faraBourse: baseURL + "&market=market_farabourse",
+    tseStocks : tseBaseURL + "tsev2/data/MarketWatchPlus.aspx"
+
 }
 
 module.exports = {

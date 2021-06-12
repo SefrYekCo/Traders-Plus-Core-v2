@@ -187,7 +187,6 @@ var getFaraBourse = () => {
     )
     redisManager.getCachedData(keys.indexes, (status, indexes) => {
       if (status) {
-        console.log('Indexes: ' + indexes)
         var allIndexes = []
         allIndexes = JSON.parse(indexes)
         console.log('allIndexes before: ' + allIndexes.length)

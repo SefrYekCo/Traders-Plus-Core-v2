@@ -156,7 +156,7 @@ function getStocksV2  () {
     let stockObjects = stocks.map(stock => {
       stockProps = stock.split(',')
       // invalid record
-      if (stockProps.length < 15) return
+      if (stockProps.length < 21) return
       return FullStockModel(stockProps)
     })
     //stockObjects = stockObjects.filter(stock => stock)
@@ -189,14 +189,12 @@ var getFaraBourse = () => {
       if (status) {
         var allIndexes = []
         allIndexes = JSON.parse(indexes)
-        console.log('allIndexes before: ' + allIndexes.length)
 
         for( var i = 0; i < allIndexes.length; i++){ 
           if ( allIndexes[i].name === "شاخص فرابورس") {
             allIndexes.splice(i, 1);
           }
         }
-        console.log('allIndexes after: ' + allIndexes.length)
         allIndexes.push(farabourseModel)
         redisManager.cacheData(keys.indexes, allIndexes)
       }

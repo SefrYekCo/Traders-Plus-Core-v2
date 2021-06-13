@@ -8,7 +8,19 @@ const StockModel = (name, full_name, namad_code, instance_code, state, final_pri
         final_price: String(final_price),
         final_price_change: parseInt(final_price_change),
         final_price_change_percent: String(final_price_change_percent),
-      }
+    }
+}
+const CryptoHistoryModel = (time_period_start, time_period_end, time_open, time_close, rate_open, rate_high, rate_low, rate_close) => {
+    return {
+        time_period_start: String(time_period_start),
+        time_period_end: String(time_period_end),
+        time_open: String(time_open),
+        time_close: String(time_close),
+        rate_open: String(rate_open),
+        rate_high: String(rate_high),
+        rate_low: String(rate_low),
+        rate_close: String(rate_close)
+    }
 }
 
 const FullStockModel = (stockProps) => {
@@ -25,10 +37,10 @@ const FullStockModel = (stockProps) => {
     yesterday_price: stockProps[13],
     close_price: stockProps[6],
     close_price_change: stockProps[6] - stockProps[13],
-    close_price_change_percent: toFixed((((stockProps[6] - stockProps[13]))/stockProps[13])*100, 2),
+    close_price_change_percent: toFixed(stockProps[1],(((stockProps[6] - stockProps[13]))/stockProps[13])*100, 2),
     final_price: stockProps[7],
     final_price_change: stockProps[7] - stockProps[13],
-    final_price_change_percent: toFixed((((stockProps[7] - stockProps[13]))/stockProps[13])*100, 2),
+    final_price_change_percent: toFixed(stockProps[1],(((stockProps[7] - stockProps[13]))/stockProps[13])*100, 2),
     eps: stockProps[14],
     free_float: null,
     highest_price: stockProps[12],
@@ -62,4 +74,8 @@ function toFixed(num, fixed) {
 }
 
 
-module.exports = {FullStockModel, StockModel}
+module.exports = {
+    FullStockModel,
+    StockModel,
+    CryptoHistoryModel
+}

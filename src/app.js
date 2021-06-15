@@ -22,7 +22,7 @@ cron.schedule('*/10 * * * * *', function () {
 });
 
 
-cron.schedule('00 01 * * * *', function () {
+cron.schedule('00 14 * * * *', function () {
     console.log('Running Cron Job  Every Hour--  ' + currenct.getHours() + ':' + currenct.getMinutes() + ':' + currenct.getSeconds());
     getAndSaveCryptoHistoryData()
 })

@@ -138,7 +138,7 @@ function getAndSaveCryptoHistoryData(token, symbol_id, time_start, time_end, per
         var history = strResponse.map(i => {
             return CryptoHistoryModel(i)
         })
-        redisManager.cacheData(keys.cryptoHistoryV1 + '_' + symbol_id, history)
+        redisManager.cacheData(keys.historyData + '_' + symbol_id, history)
         console.log('history record count: ' + history.length)
     }).catch(function (error) {
         console.log(error);

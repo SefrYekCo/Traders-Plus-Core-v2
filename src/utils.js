@@ -1,6 +1,7 @@
 const baseURL =  'https://www.sourcearena.ir/api/?token=75243df886bbfb64e6962751a91a7873' 
 const tseBaseURL = "http://tsetmc.com/"
 const coinAPIBaseURL = "https://rest.coinapi.io/"
+const tokenDatabaseAPIBaseURL = "https://api.tokendatabase.com/"
 const keys = {
     currencies: 'currencies',
     metals: 'metals',
@@ -10,6 +11,7 @@ const keys = {
     stocksList: 'stocksList',
     faraBourse: 'faraBourse',
     cryptoHistoryV1: 'cryptoHistoryV1',
+    cryptoHistoryV2: 'cryptoHistoryV2',
     historyData: 'history_data'
 }
   
@@ -20,7 +22,8 @@ const urls = {
     stocks: baseURL + "&all&type=0",
     faraBourse: baseURL + "&market=market_farabourse",
     tseStocks : tseBaseURL + "tsev2/data/MarketWatchPlus.aspx",
-    cryptoHistoryV1 : coinAPIBaseURL + "v1/exchangerate/"
+    cryptoHistoryV1 : coinAPIBaseURL + "v1/exchangerate/",
+    cryptoHistoryV2 : tokenDatabaseAPIBaseURL + "v1/indices/vwap5/ohlcv"
 
 }
 const apiTokens ={
@@ -33,7 +36,9 @@ const apiTokens ={
     coin_api5 : "88F65E1C-5867-4133-9F61-E9FF367665BE",
     coin_api6 : "C687125B-26BA-42B1-BD1A-BF2F65DFAA54",
     coin_api7 : "C89CB675-4947-4563-9308-C806E3B045B4",
-    coin_api8 : "F0EA49A4-D727-456C-8BA2-0F11BC319C4D"
+    coin_api8 : "F0EA49A4-D727-456C-8BA2-0F11BC319C4D",
+    tokenDatabase_api0 :"AUNUCWhsafR3VXgU4AZ_UV1c8PQIHY0YD9XtQGVqjXH4mqa7cof9g9UEmOQO",
+    tokenDatabase_api1 :"ARWu-gtqt3EpG85g75av1gqicjXJr7vWDA4Rli2W1ZuvnwQWRRcypGfhCfJO"
 
 
 }

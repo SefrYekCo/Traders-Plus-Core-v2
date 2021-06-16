@@ -10,16 +10,15 @@ const StockModel = (name, full_name, namad_code, instance_code, state, final_pri
         final_price_change_percent: String(final_price_change_percent),
     }
 }
-const CryptoHistoryModel = (time_period_start, time_period_end, time_open, time_close, rate_open, rate_high, rate_low, rate_close) => {
+const CryptoHistoryModel = (time, open, high, low, close, volume, volume_quote) => {
     return {
-        time_period_start: String(time_period_start),
-        time_period_end: String(time_period_end),
-        time_open: String(time_open),
-        time_close: String(time_close),
-        rate_open: String(rate_open),
-        rate_high: String(rate_high),
-        rate_low: String(rate_low),
-        rate_close: String(rate_close)
+        time: String(time),
+        open: String(open),
+        high: String(high),
+        low: String(low),
+        close: String(close),
+        volume: String(volume),
+        volume_quote: String(volume_quote)
     }
 }
 

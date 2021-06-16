@@ -74,15 +74,15 @@ var mapingIndexList = (indexes) => {
         temps.push(index)
     }
     return temps.map(i => {
-      return IndexModel(
-          i.name,
-          i.value,
-          i.change,
-          i.percent,
-          i.max,
-          i.min,
-      )
-  })
+        return IndexModel(
+            i.name,
+            i.value,
+            i.change,
+            i.percent,
+            i.max,
+            i.min,
+        )
+    })
 }
 
 var getCurrencies = () => {
@@ -136,9 +136,25 @@ function getAndSaveCryptoHistoryData(token, symbol_id, time_start, time_end, per
     }).then(function (response) {
         var strResponse = JSON.parse(JSON.stringify(response.data))
         var history = strResponse.map(i => {
-            return CryptoHistoryModel(i)
+            return CryptoHistoryModel(i.time_period_start, i.time_period_end, i.time_open, i.time_close, i.rate_open, i.rate_high, i.rate_low, i.rate_close)
         })
         redisManager.cacheData(keys.historyData + '_' + symbol_id, history)
+        console.log('history record count: ' + history.length)
+    }).catch(function (error) {
+        console.log(error);
+    })
+}
+
+function getAndSaveCryptoHistoryDataV2(token, symbol_id, time_start, time_end, period_id) {
+    axios({
+        method: 'get',
+        url: urls.cryptoHistoryV2 + `?ids=${symbol_id}&end=${time_end}&start=${time_start}&period=${period_id}&key=${token}`
+    }).then(function (response) {
+        var strResponse = JSON.parse(JSON.stringify(response.data)).results[0].candles
+        var history = strResponse.map(i => {
+            return CryptoHistoryModel(i.time, i.open, i.high, i.low, i.close, i.volume, i.volume_quote)
+        })
+        redisManager.cacheData(keys.historyData + '_' + symbol_id +"_"+ period_id, history)
         console.log('history record count: ' + history.length)
     }).catch(function (error) {
         console.log(error);
@@ -163,65 +179,65 @@ var getStocks = () => {
     })
 }
 
-function getStocksV2  () {
-  irStock.getStocks().then(data => {
-    let dataParts = data.split('@')
-    if (dataParts.length < 5) {
-      reject('Wrong data format')
-      console.log('Wrong data format')
-      return
-    }
-    let stocks = dataParts[2].split(';')
-    let stockObjects = stocks.map(stock => {
-      stockProps = stock.split(',')
-      // invalid record
-      if (stockProps.length < 21) return
-      return FullStockModel(stockProps)
-    })
-    //stockObjects = stockObjects.filter(stock => stock)
-    console.log('stocks count: ' + stockObjects.length)
-    let stockList = mapingStockList(stockObjects)
-    redisManager.cacheData(keys.stocksList, stockList)
-    redisManager.cacheData(keys.stocks, stockObjects)
-  }).catch(err =>{
-    console.log('error: ' + `${err.message}`)
+function getStocksV2() {
+    irStock.getStocks().then(data => {
+        let dataParts = data.split('@')
+        if (dataParts.length < 5) {
+            reject('Wrong data format')
+            console.log('Wrong data format')
+            return
+        }
+        let stocks = dataParts[2].split(';')
+        let stockObjects = stocks.map(stock => {
+            stockProps = stock.split(',')
+            // invalid record
+            if (stockProps.length < 21) return
+            return FullStockModel(stockProps)
+        })
+        //stockObjects = stockObjects.filter(stock => stock)
+        console.log('stocks count: ' + stockObjects.length)
+        let stockList = mapingStockList(stockObjects)
+        redisManager.cacheData(keys.stocksList, stockList)
+        redisManager.cacheData(keys.stocks, stockObjects)
+    }).catch(err => {
+        console.log('error: ' + `${err.message}`)
     })
 }
 
 
 var getFaraBourse = () => {
-  axios({
-    method: 'get',
-    url: urls.faraBourse
-  }).then(function (response) {
-    var json = JSON.parse(JSON.stringify(response.data))
-    var faraBourse = json['fara-bourse']
-    var farabourseModel = IndexModel(
-      "شاخص فرابورس",
-      faraBourse.index.replace(",", ""),
-      faraBourse.index_change.replace(",", ""),
-      faraBourse.index_change_percent.replace(",", ""),
-      "0",
-      "0"
-    )
-    redisManager.getCachedData(keys.indexes, (status, indexes) => {
-      if (status) {
-        var allIndexes = []
-        allIndexes = JSON.parse(indexes)
+    axios({
+        method: 'get',
+        url: urls.faraBourse
+    }).then(function (response) {
+        var json = JSON.parse(JSON.stringify(response.data))
+        var faraBourse = json['fara-bourse']
+        var farabourseModel = IndexModel(
+            "شاخص فرابورس",
+            faraBourse.index.replace(",", ""),
+            faraBourse.index_change.replace(",", ""),
+            faraBourse.index_change_percent.replace(",", ""),
+            "0",
+            "0"
+        )
+        redisManager.getCachedData(keys.indexes, (status, indexes) => {
+            if (status) {
+                var allIndexes = []
+                allIndexes = JSON.parse(indexes)
 
-        for( var i = 0; i < allIndexes.length; i++){ 
-          if ( allIndexes[i].name === "شاخص فرابورس") {
-            allIndexes.splice(i, 1);
-          }
-        }
-        allIndexes.push(farabourseModel)
-        redisManager.cacheData(keys.indexes, allIndexes)
-      }
+                for (var i = 0; i < allIndexes.length; i++) {
+                    if (allIndexes[i].name === "شاخص فرابورس") {
+                        allIndexes.splice(i, 1);
+                    }
+                }
+                allIndexes.push(farabourseModel)
+                redisManager.cacheData(keys.indexes, allIndexes)
+            }
+        })
+
+    }).catch(function (error) {
+        console.log(error);
     })
-    
-  }).catch(function (error) {
-    console.log(error);
-  })
 }
 
 
@@ -233,6 +249,7 @@ module.exports = {
     getStocks,
     getStocksV2,
     getFaraBourse,
-    getAndSaveCryptoHistoryData
+    getAndSaveCryptoHistoryData,
+    getAndSaveCryptoHistoryDataV2
 
 }

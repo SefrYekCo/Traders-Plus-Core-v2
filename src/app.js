@@ -7,7 +7,8 @@ const tokens = utils.apiTokens
 const PORT = process.env.PORT || 3000
 
 var app = express()
-getAndSaveCryptoHistoryData()
+getAndSaveCryptoHistoryData("12hour")
+getAndSaveCryptoHistoryData("1hour")
 
 cron.schedule('*/10 * * * * *', function () {
     var currenct = new Date()
@@ -24,19 +25,24 @@ cron.schedule('*/10 * * * * *', function () {
 
 cron.schedule('00 14 * * * *', function () {
     console.log('Running Cron Job  Every Hour--  ' + currenct.getHours() + ':' + currenct.getMinutes() + ':' + currenct.getSeconds());
-    getAndSaveCryptoHistoryData()
+    getAndSaveCryptoHistoryData("1hour")
+})
+
+cron.schedule('0 0 */12 * * *', function () {
+    console.log('Running Cron Job  Every 12 Hour--  ' + currenct.getHours() + ':' + currenct.getMinutes() + ':' + currenct.getSeconds());
+    getAndSaveCryptoHistoryData("12hour")
 })
 
 
-function getAndSaveCryptoHistoryData() {
-    apiCall.getAndSaveCryptoHistoryData(tokens.coin_api0, "BTC/USD", "2015-01-01T00:00:00", new Date().toISOString().replace(/\..+/, ''), "1HRS")
-    apiCall.getAndSaveCryptoHistoryData(tokens.coin_api1, "DOGE/USD", "2015-01-01T00:00:00", new Date().toISOString().replace(/\..+/, ''), "1HRS")
-    apiCall.getAndSaveCryptoHistoryData(tokens.coin_api2, "DOT/USD", "2015-01-01T00:00:00", new Date().toISOString().replace(/\..+/, ''), "1HRS")
-    apiCall.getAndSaveCryptoHistoryData(tokens.coin_api3, "LTC/USD", "2015-01-01T00:00:00", new Date().toISOString().replace(/\..+/, ''), "1HRS")
-    apiCall.getAndSaveCryptoHistoryData(tokens.coin_api4, "ETH/USD", "2015-01-01T00:00:00", new Date().toISOString().replace(/\..+/, ''), "1HRS")
-    apiCall.getAndSaveCryptoHistoryData(tokens.coin_api5, "BNB/USD", "2015-01-01T00:00:00", new Date().toISOString().replace(/\..+/, ''), "1HRS")
-    apiCall.getAndSaveCryptoHistoryData(tokens.coin_api6, "ADA/USD", "2015-01-01T00:00:00", new Date().toISOString().replace(/\..+/, ''), "1HRS")
-    apiCall.getAndSaveCryptoHistoryData(tokens.coin_api7, "XRP/USD", "2015-01-01T00:00:00", new Date().toISOString().replace(/\..+/, ''), "1HRS")
+function getAndSaveCryptoHistoryData(period) {
+    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api0, "btc", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '')+".000", period)
+    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api0, "doge", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '')+".000", period)
+    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api0, "dot", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '')+".000", period)
+    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api0, "ltc", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '')+".000", period)
+    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api1, "eth", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '')+".000", period)
+    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api1, "bnb", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '')+".000", period)
+    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api1, "bnb", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '')+".000", period)
+    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api1, "xrp", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '')+".000", period)
 }
 
 app.listen(PORT, () => {

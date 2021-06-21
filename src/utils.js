@@ -2,6 +2,10 @@ const baseURL =  'https://www.sourcearena.ir/api/?token=75243df886bbfb64e6962751
 const tseBaseURL = "http://tsetmc.com/"
 const coinAPIBaseURL = "https://rest.coinapi.io/"
 const tokenDatabaseAPIBaseURL = "https://api.tokendatabase.com/"
+const nomiceBaseURl = "https://api.nomics.com/"
+const curencies = "AAVE,ADA,ALGO,AMPL,ARK,ATOM,BAT,BAL,BCD,BCH,BNB,BNTY,BSV,BTC,BTG,BTT,BURST,COMP,CRO,DAI,DASH,DCR,DGB,DOGE,EOS,ETC,ETH" +
+    ",ENJ,EQL,FTM,FUSE,GAS,GRS,ONE,HT,ICX,IOTA,KIN,KMD,LEND,LINK,LSK,LTC,MTA,NANO,NEBL,NEO,ONG,ONT,QTUM,RVN,REP,RSK,SIERRA,SMART,STRAX,SWTH,TLOS" +
+    ",TPAY,TRX,TWT,UBQ,USDC,USDT,VET,VSYS,VTHO,WAN,WAVES,XDC,XEM,XLM,XMR,XRP,XTZ,XVG,XZC,YFI,ZEC,ZIL,ZRX"
 const keys = {
     currencies: 'currencies',
     metals: 'metals',
@@ -14,7 +18,7 @@ const keys = {
     cryptoHistoryV2: 'cryptoHistoryV2',
     historyData: 'history_data'
 }
-  
+
 const urls = {
     currencies: baseURL + "&currency",
     indexes: baseURL + "&market=indices",
@@ -23,7 +27,8 @@ const urls = {
     faraBourse: baseURL + "&market=market_farabourse",
     tseStocks : tseBaseURL + "tsev2/data/MarketWatchPlus.aspx",
     cryptoHistoryV1 : coinAPIBaseURL + "v1/exchangerate/",
-    cryptoHistoryV2 : tokenDatabaseAPIBaseURL + "v1/indices/vwap5/ohlcv"
+    cryptoHistoryV2 : tokenDatabaseAPIBaseURL + "v1/indices/vwap5/ohlcv",
+    nomiceURl : nomiceBaseURl + "v1/currencies/ticker?key=50640cf10da922ef2bc3b286e40fb5363b34389b&ids=" + curencies + "&interval=1d&convert=USDT"
 
 }
 const apiTokens ={

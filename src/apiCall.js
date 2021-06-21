@@ -54,13 +54,15 @@ var mapingStockList = (stocks) => {
 }
 
 var mapingCryptoList = (cryptos) => {
+
     return cryptos.map(i => {
+        let p_ch_p_d = i["1d"]["price_change_pct"]
         return CryptoModel(
             i.symbol,
             i.name,
-            i.icon,
+            i.logo_url,
             i.price,
-            i.change_percent_24h,
+            i["1d"]["price_change_pct"],
             i.market_cap,
         )
     })
@@ -117,9 +119,10 @@ var getIndexes = () => {
 var getCryptos = () => {
     axios({
         method: 'get',
-        url: urls.cryptos
+        url: urls.nomiceURl
     }).then(function (response) {
-        var cryptos = JSON.parse(JSON.stringify(response.data)).data
+        var cryptos = JSON.parse(JSON.stringify(response.data))
+        cryptos = cryptos.filter(obj => obj.status != "dead" && obj.status != "inactive")
         var tempCryptos = mapingCryptoList(cryptos)
         redisManager.cacheData(keys.cryptos, tempCryptos)
         console.log('cryptos count: ' + cryptos.length)
@@ -154,7 +157,7 @@ function getAndSaveCryptoHistoryDataV2(token, symbol_id, time_start, time_end, p
         var history = strResponse.map(i => {
             return CryptoHistoryModel(i.time, i.open, i.high, i.low, i.close, i.volume, i.volume_quote)
         })
-        redisManager.cacheData(keys.historyData + '_' + symbol_id +"_"+ period_id, history)
+        redisManager.cacheData(keys.historyData + '_' + symbol_id + "_" + period_id, history)
         console.log('history record count: ' + history.length)
     }).catch(function (error) {
         console.log(error);

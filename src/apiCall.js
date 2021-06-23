@@ -2,6 +2,7 @@ const axios = require('axios')
 const StockModel = require('../models/stockModel').StockModel
 const FullStockModel = require('../models/stockModel').FullStockModel
 const CryptoHistoryModel = require('../models/stockModel').CryptoHistoryModel
+const WeatherForecastModel = require('../models/stockModel').WeatherForecastModel
 const IndexModel = require('../models/indexModel')
 const CryptoModel = require('../models/cryptocurrencyModel')
 const CurrencyModel = require('../models/currencyModel')
@@ -163,6 +164,21 @@ function getAndSaveCryptoHistoryDataV2(token, symbol_id, time_start, time_end, p
         console.log(error);
     })
 }
+function getAndSaveWeatherForecast() {
+    axios({
+        method: 'get',
+        url: urls.weatherForecast
+    }).then(function (response) {
+        var strResponse = JSON.parse(JSON.stringify(response.data))
+        var history = strResponse.map(i => {
+            return WeatherForecastModel(i)
+        })
+        redisManager.cacheData(keys.weatherForecast , history)
+        console.log('weatherforecast count: ' + history.length)
+    }).catch(function (error) {
+        console.log(error);
+    })
+}
 
 var getStocks = () => {
     axios({
@@ -253,6 +269,7 @@ module.exports = {
     getStocksV2,
     getFaraBourse,
     getAndSaveCryptoHistoryData,
-    getAndSaveCryptoHistoryDataV2
+    getAndSaveCryptoHistoryDataV2,
+    getAndSaveWeatherForecast
 
 }

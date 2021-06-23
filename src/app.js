@@ -10,8 +10,11 @@ var app = express()
 getAndSaveCryptoHistoryData("12hour")
 getAndSaveCryptoHistoryData("1hour")
 
+apiCall.getAndSaveWeatherForecast()
+
 cron.schedule('*/10 * * * * *', function () {
     var currenct = new Date()
+    apiCall.getAndSaveWeatherForecast()
     apiCall.getCryptos()
     apiCall.getIndexes()
     //apiCall.getStocks()

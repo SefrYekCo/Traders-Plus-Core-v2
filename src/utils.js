@@ -1,5 +1,6 @@
 const baseURL =  'https://www.sourcearena.ir/api/?token=75243df886bbfb64e6962751a91a7873' 
 const tseBaseURL = "http://tsetmc.com/"
+const tseBaseURLV2 = "http://new.tsetmc.com/"
 const coinAPIBaseURL = "https://rest.coinapi.io/"
 const tokenDatabaseAPIBaseURL = "https://api.tokendatabase.com/"
 const nomiceBaseURl = "https://api.nomics.com/"
@@ -16,7 +17,8 @@ const keys = {
     faraBourse: 'faraBourse',
     cryptoHistoryV1: 'cryptoHistoryV1',
     cryptoHistoryV2: 'cryptoHistoryV2',
-    historyData: 'history_data'
+    historyData: 'history_data',
+    weatherForecast: 'weather_forecast'
 }
 
 const urls = {
@@ -28,7 +30,8 @@ const urls = {
     tseStocks : tseBaseURL + "tsev2/data/MarketWatchPlus.aspx",
     cryptoHistoryV1 : coinAPIBaseURL + "v1/exchangerate/",
     cryptoHistoryV2 : tokenDatabaseAPIBaseURL + "v1/indices/vwap5/ohlcv",
-    nomiceURl : nomiceBaseURl + "v1/currencies/ticker?key=50640cf10da922ef2bc3b286e40fb5363b34389b&ids=" + curencies + "&interval=1d&convert=USDT"
+    nomiceURl : nomiceBaseURl + "v1/currencies/ticker?key=50640cf10da922ef2bc3b286e40fb5363b34389b&ids=" + curencies + "&interval=1d&convert=USDT",
+    weatherForecast : tseBaseURLV2 + "weatherforecast"
 
 }
 const apiTokens ={

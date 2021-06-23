@@ -22,6 +22,27 @@ const CryptoHistoryModel = (time, open, high, low, close, volume, volume_quote) 
     }
 }
 
+const WeatherForecastModel = (item) => {
+    return {
+        isGreen: String(item.IsGreen),
+        insCode: String(item.InsCode),
+        weight: String(item.Weight),
+        LVal18AFC: String(item.LVal18AFC),
+        LVal30: String(item.LVal30),
+        percent: String(item.Percent),
+        LSecVal: String(item.LSecVal),
+        CSecVal: String(item.CSecVal),
+        fontSize: String(item.FontSize),
+        PClosing: String(item.PClosing),
+        PClosingChange: String(item.PClosingChange),
+        PDrCotVal: String(item.PDrCotVal),
+        ZTotTran: String(item.ZTotTran),
+        QTotTran5J: String(item.QTotTran5J),
+        QTotCap: String(item.QTotCap),
+        heven: String(item.Heven)
+    }
+}
+
 const FullStockModel = (stockProps) => {
   return {
     name: stockProps[2],
@@ -76,5 +97,6 @@ function toFixed(num, fixed) {
 module.exports = {
     FullStockModel,
     StockModel,
-    CryptoHistoryModel
+    CryptoHistoryModel,
+    WeatherForecastModel
 }

@@ -17,10 +17,10 @@ cron.schedule('*/10 * * * * *', function () {
     apiCall.getAndSaveWeatherForecast()
     apiCall.getCryptos()
     apiCall.getIndexes()
-    //apiCall.getStocks()
+    apiCall.getStocks()
     apiCall.getCurrencies()
     apiCall.getFaraBourse()
-    apiCall.getStocksV2()
+    //apiCall.getStocksV2()
     console.log('---------------------');
     console.log('Running Cron Job Every Min  --  ' + currenct.getHours() + ':' + currenct.getMinutes() + ':' + currenct.getSeconds());
 });

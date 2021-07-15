@@ -1,4 +1,5 @@
 const baseURL =  'https://www.sourcearena.ir/api/?token=75243df886bbfb64e6962751a91a7873' 
+const baseURLNews =  'https://www.sourcearena.ir/api/news.php?token=75243df886bbfb64e6962751a91a7873'
 const tseBaseURL = "http://tsetmc.com/"
 const tseBaseURLV2 = "http://new.tsetmc.com/"
 const coinAPIBaseURL = "https://rest.coinapi.io/"
@@ -9,6 +10,7 @@ const curencies = "AAVE,ADA,ALGO,AMPL,ARK,ATOM,BAT,BAL,BCD,BCH,BNB,BNTY,BSV,BTC,
     ",TPAY,TRX,TWT,UBQ,USDC,USDT,VET,VSYS,VTHO,WAN,WAVES,XDC,XEM,XLM,XMR,XRP,XTZ,XVG,XZC,YFI,ZEC,ZIL,ZRX"
 const keys = {
     currencies: 'currencies',
+    news: 'news',
     metals: 'metals',
     indexes: 'indexes',
     cryptos: 'cryptos',
@@ -23,6 +25,7 @@ const keys = {
 
 const urls = {
     currencies: baseURL + "&currency",
+    news: baseURLNews + "&p=1",
     indexes: baseURL + "&market=indices",
     cryptos: baseURL + "&crypto_v2=all",
     stocks: baseURL + "&all&type=0",

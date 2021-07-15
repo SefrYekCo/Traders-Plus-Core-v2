@@ -3,6 +3,7 @@ const StockModel = require('../models/stockModel').StockModel
 const FullStockModel = require('../models/stockModel').FullStockModel
 const CryptoHistoryModel = require('../models/stockModel').CryptoHistoryModel
 const WeatherForecastModel = require('../models/stockModel').WeatherForecastModel
+const NewsModel = require('../models/newsModel')
 const IndexModel = require('../models/indexModel')
 const CryptoModel = require('../models/cryptocurrencyModel')
 const CurrencyModel = require('../models/currencyModel')
@@ -88,6 +89,22 @@ var mapingIndexList = (indexes) => {
     })
 }
 
+var getNews = () => {
+    axios({
+        method: 'get',
+        url: urls.news
+    }).then(function (response) {
+        var strResponse = JSON.parse(JSON.stringify(response.data))
+        var history = strResponse.map(i => {
+            return NewsModel(i)
+        })
+        redisManager.cacheData(keys.news, history)
+        console.log('news count: ' + history.length)
+    }).catch(function (error) {
+        console.log(error);
+    })
+}
+
 var getCurrencies = () => {
     axios({
         method: 'get',
@@ -164,6 +181,7 @@ function getAndSaveCryptoHistoryDataV2(token, symbol_id, time_start, time_end, p
         console.log(error);
     })
 }
+
 function getAndSaveWeatherForecast() {
     axios({
         method: 'get',
@@ -173,7 +191,7 @@ function getAndSaveWeatherForecast() {
         var history = strResponse.map(i => {
             return WeatherForecastModel(i)
         })
-        redisManager.cacheData(keys.weatherForecast , history)
+        redisManager.cacheData(keys.weatherForecast, history)
         console.log('weatherforecast count: ' + history.length)
     }).catch(function (error) {
         console.log(error);
@@ -270,6 +288,7 @@ module.exports = {
     getFaraBourse,
     getAndSaveCryptoHistoryData,
     getAndSaveCryptoHistoryDataV2,
-    getAndSaveWeatherForecast
+    getAndSaveWeatherForecast,
+    getNews
 
 }

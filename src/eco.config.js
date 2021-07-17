@@ -1,7 +1,7 @@
 module.exports = {
     apps : [
         {
-            name: "myapp",
+            name: "core",
             script: "src/app.js",
             watch: true,
             env_local: {

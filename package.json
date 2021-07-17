@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start_local": "/home/jalil/.nvm/versions/node/v14.17.0/bin/pm2 start ../p188-traderplus-core/src/eco.config.js --env local",
     "start": "node src/app.js"
   },
   "repository": {

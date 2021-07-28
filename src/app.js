@@ -26,11 +26,16 @@ cron.schedule('*/10 * * * * *', function () {
     console.log('Running Cron Job Every Min  --  ' + currenct.getHours() + ':' + currenct.getMinutes() + ':' + currenct.getSeconds());
 });
 
+cron.schedule('*/2 * * * *', function () {
+    var currenct = new Date()
+    apiCall.getNews()
+    console.log('***************************');
+    console.log('Running Cron Job Every 30 Min  --  ' + currenct.getHours() + ':' + currenct.getMinutes() + ':' + currenct.getSeconds());
+});
 
 cron.schedule('00 14 * * * *', function () {
     console.log('Running Cron Job  Every Hour--  ' + currenct.getHours() + ':' + currenct.getMinutes() + ':' + currenct.getSeconds());
     getAndSaveCryptoHistoryData("1hour")
-    apiCall.getNews()
 })
 
 cron.schedule('0 0 */12 * * *', function () {

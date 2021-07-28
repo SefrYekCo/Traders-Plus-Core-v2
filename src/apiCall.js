@@ -145,7 +145,7 @@ var getCryptos = () => {
         redisManager.cacheData(keys.cryptos, tempCryptos)
         console.log('cryptos count: ' + cryptos.length)
     }).catch(function (error) {
-        console.log(error);
+        console.log(error.response.data);
     })
 }
 
@@ -162,7 +162,7 @@ function getAndSaveCryptoHistoryData(token, symbol_id, time_start, time_end, per
         redisManager.cacheData(keys.historyData + '_' + symbol_id, history)
         console.log('history record count: ' + history.length)
     }).catch(function (error) {
-        console.log(error);
+        console.log(error.response.data);
     })
 }
 
@@ -194,7 +194,7 @@ function getAndSaveWeatherForecast() {
         redisManager.cacheData(keys.weatherForecast, history)
         console.log('weatherforecast count: ' + history.length)
     }).catch(function (error) {
-        console.log(error);
+        console.log(error.response.data);
     })
 }
 

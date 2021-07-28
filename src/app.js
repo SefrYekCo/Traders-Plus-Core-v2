@@ -26,7 +26,7 @@ cron.schedule('*/10 * * * * *', function () {
     console.log('Running Cron Job Every Min  --  ' + currenct.getHours() + ':' + currenct.getMinutes() + ':' + currenct.getSeconds());
 });
 
-cron.schedule('*/2 * * * *', function () {
+cron.schedule('*/30 * * * *', function () {
     var currenct = new Date()
     apiCall.getNews()
     console.log('***************************');

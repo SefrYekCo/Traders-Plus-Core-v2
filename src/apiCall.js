@@ -16,9 +16,9 @@ const urls = utils.urls
 const keys = utils.keys
 
 
-const metalSlugs = ["SEKE_BAHAR", "SEKE_EMAMI", "SEKE_NIM", "SEKE_ROB", "SEKE_GERAMI", "TALA_MESGHAL", "TALA_24", "TALA_18", "ONS"];
+const metalSlugs = ["SEKE_BAHAR", "SEKE_EMAMI", "SEKE_NIM", "SEKE_ROB", "SEKE_GERAMI", "TALA_MESGHAL", "TALA_24", "TALA_18", "ONS", "PALA",];
 var extractMetals = (currencies) => {
-    var metals = currencies.filter(obj => metalSlugs.includes(obj.slug) || obj.slug.length === 0)
+    var metals = currencies.filter(obj => metalSlugs.includes(obj.slug))
     return metals.map(i => {
         return CurrencyModel(i)
     })

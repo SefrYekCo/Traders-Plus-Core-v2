@@ -27,7 +27,7 @@ var getCachedData = (key, callback) => {
       console.log('redis err: ' + err.message)
       callback(false, err.message)
     } else if (reply == null) {
-      callback(false, utils.messages.notAvailable)
+      callback(false, "not available")
     } else {
       callback(true, reply)
     }

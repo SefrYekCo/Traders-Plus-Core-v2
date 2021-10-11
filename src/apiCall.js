@@ -7,6 +7,7 @@ const NewsModel = require('../models/newsModel')
 const IndexModel = require('../models/indexModel')
 const CryptoModel = require('../models/cryptocurrencyModel')
 const CurrencyModel = require('../models/currencyModel')
+const crowler = require('./crowler')
 
 const redisManager = require('./redisManager')
 const irStock = require('./irStocksAPI')
@@ -90,7 +91,8 @@ var mapingIndexList = (indexes) => {
 }
 
 var getNews = () => {
-    axios({
+    crowler.getNewsFromCrowler([])
+/*    axios({
         method: 'get',
         url: urls.news
     }).then(function (response) {
@@ -102,7 +104,7 @@ var getNews = () => {
         console.log('news count: ' + history.length)
     }).catch(function (error) {
         console.log(error);
-    })
+    })*/
 }
 
 var getCurrencies = () => {

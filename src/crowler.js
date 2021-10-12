@@ -44,7 +44,7 @@ function getDetails(url, title, message, date_time, image) {
     return  index.getData(encodeURI(url)).then(response => {
         const root = parse(response)
         let text = root.querySelector("main").childNodes[1].childNodes[1].childNodes[1].childNodes[7].childNodes[6].text
-        let id = utils.convertNumbers2English(image.split("/")[image.split("/").length - 1].replace(".jpg", ""))
+        let id = utils.convertNumbers2English(image.split("/")[image.split("/").length - 1].replace(".jpg", "")) + url.split("/")[4]
         items.push( {
             id: id,
             title: title,

@@ -5,11 +5,21 @@ const redisManager = require("./redisManager");
 const utils = require("./utils");
 const {getPersianDate} = require("./utils");
 let items = []
-let count = 0
 const keys = utils.keys
 
-function getNewsFromCrowler(itemsNew) {
+
+function getSymbolsFromCrowler(itemsNew) {
     items = itemsNew
+    return index.getData("http://www.tsetmc.com/Loader.aspx?ParTree=15131F").then(response => {
+        const root = parse(response);
+        cheerio.load(response)
+
+    }).catch(err => {
+        console.log(err)
+    })
+}
+function getNewsFromCrowler() {
+    items = []
     return index.getData("https://www.khabaronline.ir/service/Economy/financial-market").then(response => {
         const $ = cheerio.load(response);
         for (const element of $('.news')) {
@@ -27,7 +37,6 @@ function getNewsFromCrowler(itemsNew) {
         return items
 
     }).catch(err => {
-        count -=1
         console.log(err)
     })
 }
@@ -46,8 +55,15 @@ function getDetails(url, title, message, date_time, image) {
             text: text,
             date: utils.getPersianDate(date_time),
             pDate: (date_time),
-            view: ""
-        })
+            view: ""})
+        items.sort(function(a, b) {
+            var keyA = new Date(a.date.replace("-","")),
+                keyB = new Date(b.date.replace("-",""));
+            // Compare the 2 dates
+            if (keyA < keyB) return -1;
+            if (keyA > keyB) return 1;
+            return 0;
+        });
         redisManager.cacheData(keys.news, items)
     })
         .catch(err => {
@@ -56,5 +72,6 @@ function getDetails(url, title, message, date_time, image) {
 
 }
 module.exports = {
-    getNewsFromCrowler
+    getNewsFromCrowler,
+    getSymbolsFromCrowler
 }

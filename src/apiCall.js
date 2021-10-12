@@ -91,7 +91,7 @@ var mapingIndexList = (indexes) => {
 }
 
 var getNews = () => {
-    crowler.getNewsFromCrowler([])
+    crowler.getNewsFromCrowler()
 /*    axios({
         method: 'get',
         url: urls.news

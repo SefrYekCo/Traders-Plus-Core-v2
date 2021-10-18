@@ -106,6 +106,9 @@ var getNews = () => {
         console.log(error);
     })*/
 }
+var getAndSaveHedgeFundsRank = () => {
+    crowler.getHedgeFundsRanks()
+}
 
 var getCurrencies = () => {
     axios({
@@ -291,6 +294,7 @@ module.exports = {
     getAndSaveCryptoHistoryData,
     getAndSaveCryptoHistoryDataV2,
     getAndSaveWeatherForecast,
-    getNews
+    getNews,
+    getAndSaveHedgeFundsRank
 
 }

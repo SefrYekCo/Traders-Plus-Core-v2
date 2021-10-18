@@ -24,7 +24,9 @@ const keys = {
     cryptoHistoryV1: 'cryptoHistoryV1',
     cryptoHistoryV2: 'cryptoHistoryV2',
     historyData: 'history_data',
-    weatherForecast: 'weather_forecast'
+    weatherForecast: 'weather_forecast',
+    hedgeFundRanks: 'hedge_funds_rank'
+
 }
 
 const urls = {

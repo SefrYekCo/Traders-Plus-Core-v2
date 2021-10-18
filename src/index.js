@@ -5,7 +5,7 @@ function index  (url) {
     const data = axios({
         method: 'get',
         url: url
-    }).then((response) => response.data)
+    }).then((response) => response)
     return data
 }
 

@@ -2,7 +2,6 @@ const cron = require('node-cron');
 const express = require('express');
 const apiCall = require('./apiCall');
 const utils = require('./utils')
-
 const tokens = utils.apiTokens
 const PORT = process.env.PORT || 3000
 
@@ -12,6 +11,7 @@ getAndSaveCryptoHistoryData("1hour")
 
 apiCall.getAndSaveWeatherForecast()
 apiCall.getNews()
+apiCall.getAndSaveHedgeFundsRank()
 
 cron.schedule('*/10 * * * * *', function () {
     var currenct = new Date()
@@ -29,6 +29,7 @@ cron.schedule('*/10 * * * * *', function () {
 cron.schedule('*/30 * * * *', function () {
     var currenct = new Date()
     apiCall.getNews()
+    apiCall.getAndSaveHedgeFundsRank()
     console.log('***************************');
     console.log('Running Cron Job Every 30 Min  --  ' + currenct.getHours() + ':' + currenct.getMinutes() + ':' + currenct.getSeconds());
 });

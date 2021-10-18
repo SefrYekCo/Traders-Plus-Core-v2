@@ -42,6 +42,40 @@ const WeatherForecastModel = (item) => {
         heven: String(item.Heven)
     }
 }
+const HedgeFundModel = (item) => {
+    return {
+        regNo:item.regNo,
+        name:item.name,
+        rankOf12Month:item.rankOf12Month,
+        rankOf36Month:item.rankOf36Month,
+        rankOf60Month:item.rankOf60Month,
+        rankLastUpdate:item.rankLastUpdate,
+        fundType:item.fundType,
+        typeOfInvest:item.typeOfInvest,
+        fundSize:item.fundSize,
+        initiationDate:item.initiationDate,
+        dailyEfficiency:item.dailyEfficiency,
+        weeklyEfficiency:item.weeklyEfficiency,
+        monthlyEfficiency:item.monthlyEfficiency,
+        quarterlyEfficiency:item.quarterlyEfficiency,
+        sixMonthEfficiency:item.sixMonthEfficiency,
+        annualEfficiency:item.annualEfficiency,
+        efficiency:item.efficiency,
+        cancelNav:item.cancelNav,
+        issueNav:item.issueNav,
+        dividendIntervalPeriod:item.dividendIntervalPeriod,
+        guaranteedEarningRate:item.guaranteedEarningRate,
+        date:item.date,
+        netAsset:item.netAsset,
+        estimatedEarningRate:item.estimatedEarningRate,
+        investedUnits:item.investedUnits,
+        manager:item.manager,
+        auditor:item.auditor,
+        custodian:item.custodian,
+        guarantor:item.guarantor,
+        fundWatch:item.fundWatch
+    }
+}
 
 const FullStockModel = (i) => {
     return {
@@ -98,5 +132,6 @@ module.exports = {
     FullStockModel,
     StockModel,
     CryptoHistoryModel,
-    WeatherForecastModel
+    WeatherForecastModel,
+    HedgeFundModel
 }

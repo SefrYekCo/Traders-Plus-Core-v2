@@ -46,7 +46,7 @@ var mapingStockList = (stocks) => {
         return StockModel(
             i.name,
             i.full_name,
-            i.symbol_code,
+            i.namad_code,
             i.instance_code,
             i.state,
             i.final_price,

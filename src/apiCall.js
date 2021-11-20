@@ -204,6 +204,8 @@ function getAndSaveWeatherForecast() {
 }
 
 var getStocks = () => {
+    crowler.getStoppedStocks()
+
     axios({
         method: 'get',
         url: urls.stocks
@@ -213,8 +215,20 @@ var getStocks = () => {
         var stocksWithDetails = stocks.map(i => {
             return FullStockModel(i)
         })
-        redisManager.cacheData(keys.stocksList, stockList)
-        redisManager.cacheData(keys.stocks, stocksWithDetails)
+        redisManager.getCachedData(keys.stocksStopped, (status, stocksStopped) => {
+            for (const item of JSON.parse(stocksStopped)){
+                stocksWithDetails = stocksWithDetails.filter((a) => a.name !== item.name)
+                stocksWithDetails.push(item)
+            }
+            redisManager.cacheData(keys.stocks, stocksWithDetails)
+        })
+        redisManager.getCachedData(keys.stocksListStopped, (status, stocksListStopped) => {
+            for (const item of JSON.parse(stocksListStopped)){
+                stockList = stockList.filter((a) => a.name !== item.name)
+                stockList.push(item)
+            }
+            redisManager.cacheData(keys.stocksList, stockList)
+        })
         console.log('stocks count: ' + stocks.length)
     }).catch(function (error) {
         console.log(error);

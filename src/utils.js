@@ -20,6 +20,8 @@ const keys = {
     cryptos: 'cryptos',
     stocks: 'stocks',
     stocksList: 'stocksList',
+    stocksStopped: 'stocksStopped',
+    stocksListStopped: 'stocksListStopped',
     faraBourse: 'faraBourse',
     cryptoHistoryV1: 'cryptoHistoryV1',
     cryptoHistoryV2: 'cryptoHistoryV2',
@@ -31,6 +33,8 @@ const keys = {
 
 const urls = {
     currencies: baseURL + "&currency",
+    stockDetails: baseURL + "&name=",
+    stoppedStocks: "https://www.seo.ir/Page/lDLooqs7S17iBJ-jxFQ8Ww==/%D9%86%D9%85%D8%A7%D8%AF%D9%87%D8%A7%DB%8C-%D9%85%D8%AA%D9%88%D9%82%D9%81%D8%8C-%D8%AA%D8%B9%D9%84%DB%8C%D9%82-%D8%B4%D8%AF%D9%87-%D9%88-%D9%81%D8%B9%D8%A7%D9%84-%D8%AA%D8%AD%D8%AA-%D8%A7%D8%AD%D8%AA%DB%8C%D8%A7%D8%B7",
     news: baseURLNews + "&p=1",
     indexes: baseURL + "&market=indices",
     cryptos: baseURL + "&crypto_v2=all",

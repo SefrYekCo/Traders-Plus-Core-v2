@@ -2,8 +2,12 @@ const cheerio = require('cheerio');
 const index = require('./index')
 const {parse} = require('node-html-parser')
 const redisManager = require("./redisManager");
-const utils = require("./utils");
+const utils = require('./utils')
+const urls = utils.urls
+const {FullStockModel, StockModel} = require("../models/stockModel");
+const constants = require("constants");
 let newsItems = []
+let stoppedStocks = []
 const keys = utils.keys
 const HedgeFundModel = require('../models/stockModel').HedgeFundModel
 
@@ -24,7 +28,6 @@ function getHedgeFundsRanks() {
     }).catch(err => {
         console.log(err)
     })
-
 
     /*    return index.getData("https://www.fipiran.ir/Symbol?symbolpara=%D8%AD%D9%81%D8%A7%D8%B1%D8%B3").then(response => {
             const root = parse(response);
@@ -57,7 +60,7 @@ function getNewsFromCrowler() {
                 let message = element.children[3].children[3].children[0].data
                 let date_time = element.children[3].children[5].attribs.title
                 let image = element.children[1].children[0].children[1].attribs.src
-                getDetails(url, title, message, date_time, image)
+                getNewsDetails(url, title, message, date_time, image)
             } catch (e) {
                 console.log(e)
             }
@@ -69,7 +72,56 @@ function getNewsFromCrowler() {
     })
 }
 
-function getDetails(url, title, message, date_time, image) {
+function getStoppedStocks() {
+    stoppedStocks = []
+    return index.getData(urls.stoppedStocks).then(response => {
+        const $ = cheerio.load(response.data);
+        for (const element of $('table')["5"].children["3"].childNodes) {
+            try {
+                stoppedStocks.push(element.children["3"].children["0"].data)
+            } catch (e) {
+                console.log(e)
+            }
+        }
+        getStockDetails(stoppedStocks)
+
+    }).catch(err => {
+        console.log(err)
+    })
+}
+
+function getStockDetails(stoppedStocks) {
+    for (const item of stoppedStocks) {
+        index.getData(encodeURI(urls.stockDetails  + item)).then(response => {
+            if (response.status === 200) {
+                let simpleModel = StockModel(response.data.name, response.data.full_name, response.data.namad_code, response.data.instance_code, response.data.state,
+                    response.data.final_price, response.data.final_price_change, response.data.final_price_change_percent);
+                let fullModel = FullStockModel(response.data);
+                redisManager.getCachedData(keys.stocksListStopped, (status, stocksList) => {
+                    if (status === false){
+                        redisManager.cacheData(keys.stocksListStopped, [simpleModel])
+                        return
+                    }
+                    let stockListAfterFilter = JSON.parse(stocksList).filter((a) => a.name !== item)
+                    stockListAfterFilter.push(simpleModel)
+                    redisManager.cacheData(keys.stocksListStopped, stockListAfterFilter)
+                })
+                redisManager.getCachedData(keys.stocksStopped, (status, stocksList) => {
+                    if (status === false){
+                        redisManager.cacheData(keys.stocksStopped, [fullModel])
+                        return
+                    }
+                    let stockListAfterFilter = JSON.parse(stocksList).filter((a) => a.name !== item)
+                    stockListAfterFilter.push(fullModel)
+                    redisManager.cacheData(keys.stocksStopped, stockListAfterFilter)
+                })
+            }
+        })
+
+    }
+}
+
+function getNewsDetails(url, title, message, date_time, image) {
     return index.getData(encodeURI(url)).then(response => {
         const root = parse(response.data)
         let text = root.querySelector("main").childNodes[1].childNodes[1].childNodes[1].childNodes[7].childNodes[6].text
@@ -104,5 +156,6 @@ function getDetails(url, title, message, date_time, image) {
 
 module.exports = {
     getNewsFromCrowler,
-    getHedgeFundsRanks
+    getHedgeFundsRanks,
+    getStoppedStocks
 }

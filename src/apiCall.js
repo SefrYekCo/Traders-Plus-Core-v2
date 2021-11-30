@@ -92,19 +92,19 @@ var mapingIndexList = (indexes) => {
 
 var getNews = () => {
     crowler.getNewsFromCrowler()
-/*    axios({
-        method: 'get',
-        url: urls.news
-    }).then(function (response) {
-        var strResponse = JSON.parse(JSON.stringify(response.data))
-        var history = strResponse.map(i => {
-            return NewsModel(i)
-        })
-        redisManager.cacheData(keys.news, history)
-        console.log('news count: ' + history.length)
-    }).catch(function (error) {
-        console.log(error);
-    })*/
+    /*    axios({
+            method: 'get',
+            url: urls.news
+        }).then(function (response) {
+            var strResponse = JSON.parse(JSON.stringify(response.data))
+            var history = strResponse.map(i => {
+                return NewsModel(i)
+            })
+            redisManager.cacheData(keys.news, history)
+            console.log('news count: ' + history.length)
+        }).catch(function (error) {
+            console.log(error);
+        })*/
 }
 var getAndSaveHedgeFundsRank = () => {
     crowler.getHedgeFundsRanks()
@@ -157,7 +157,7 @@ var getCryptos = () => {
 function getAndSaveCryptoHistoryData(token, symbol_id, time_start, time_end, period_id) {
     axios({
         method: 'get',
-        headers: {'X-CoinAPI-Key': token},
+        headers: { 'X-CoinAPI-Key': token },
         url: urls.cryptoHistoryV1 + `${symbol_id}/history?period_id=${period_id}&time_start=${time_start}&time_end=${time_end}&limit=100000`
     }).then(function (response) {
         var strResponse = JSON.parse(JSON.stringify(response.data))
@@ -216,16 +216,24 @@ var getStocks = () => {
             return FullStockModel(i)
         })
         redisManager.getCachedData(keys.stocksStopped, (status, stocksStopped) => {
-            for (const item of JSON.parse(stocksStopped)){
-                stocksWithDetails = stocksWithDetails.filter((a) => a.name !== item.name)
-                stocksWithDetails.push(item)
+            try {
+                for (const item of JSON.parse(stocksStopped)) {
+                    stocksWithDetails = stocksWithDetails.filter((a) => a.name !== item.name)
+                    stocksWithDetails.push(item)
+                }
+            } catch (error) {
+
             }
             redisManager.cacheData(keys.stocks, stocksWithDetails)
         })
         redisManager.getCachedData(keys.stocksListStopped, (status, stocksListStopped) => {
-            for (const item of JSON.parse(stocksListStopped)){
-                stockList = stockList.filter((a) => a.name !== item.name)
-                stockList.push(item)
+            try {
+                for (const item of JSON.parse(stocksListStopped)) {
+                    stockList = stockList.filter((a) => a.name !== item.name)
+                    stockList.push(item)
+                }
+            } catch (error) {
+
             }
             redisManager.cacheData(keys.stocksList, stockList)
         })

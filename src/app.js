@@ -13,7 +13,7 @@ apiCall.getAndSaveWeatherForecast()
 apiCall.getNews()
 apiCall.getAndSaveHedgeFundsRank()
 
-cron.schedule('*/10 * * * * *', function () {
+cron.schedule(process.env.CRON_SCHEDULE || '*/30 * * * * *', function () {
     var currenct = new Date()
     apiCall.getAndSaveWeatherForecast()
     apiCall.getCryptos()
@@ -46,14 +46,14 @@ cron.schedule('0 0 */12 * * *', function () {
 
 
 function getAndSaveCryptoHistoryData(period) {
-    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api0, "btc", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '')+".000", period)
-    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api0, "doge", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '')+".000", period)
-    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api0, "dot", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '')+".000", period)
-    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api0, "ltc", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '')+".000", period)
-    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api1, "eth", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '')+".000", period)
-    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api1, "bnb", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '')+".000", period)
-    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api1, "bnb", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '')+".000", period)
-    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api1, "xrp", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '')+".000", period)
+    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api0, "btc", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '') + ".000", period)
+    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api1, "doge", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '') + ".000", period)
+    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api2, "dot", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '') + ".000", period)
+    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api3, "ltc", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '') + ".000", period)
+    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api4, "eth", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '') + ".000", period)
+    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api5, "bnb", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '') + ".000", period)
+    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api4, "bnb", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '') + ".000", period)
+    apiCall.getAndSaveCryptoHistoryDataV2(tokens.tokenDatabase_api3, "xrp", "2020-01-01T00:00:00.000", new Date().toISOString().replace(/\..+/, '') + ".000", period)
 }
 
 app.listen(PORT, () => {

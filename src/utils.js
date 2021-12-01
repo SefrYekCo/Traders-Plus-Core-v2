@@ -59,9 +59,11 @@ const apiTokens = {
     coin_api7: "C89CB675-4947-4563-9308-C806E3B045B4",
     coin_api8: "F0EA49A4-D727-456C-8BA2-0F11BC319C4D",
     tokenDatabase_api0: "AUNUCWhsafR3VXgU4AZ_UV1c8PQIHY0YD9XtQGVqjXH4mqa7cof9g9UEmOQO",
-    tokenDatabase_api1: "ARWu-gtqt3EpG85g75av1gqicjXJr7vWDA4Rli2W1ZuvnwQWRRcypGfhCfJO"
-
-
+    tokenDatabase_api1: "ARWu-gtqt3EpG85g75av1gqicjXJr7vWDA4Rli2W1ZuvnwQWRRcypGfhCfJO",
+    tokenDatabase_api2: "ATvIk6pUL7f6FOTAXcun9uHjfFJGOB_tvtCSYsyhBD2lV_qp1zn3cnTDwIPC",
+    tokenDatabase_api3: "AV-eiHDDuJpqiw47Arwlx0-p7xMWy-6EEDv57Z7OZbOdDk1a_Du655I6D4pS",
+    tokenDatabase_api4: "ARgxaeS3yo53hi0w3bchMtqi5jTHxIRkI3YX-fbG7jCs2L6TX2WHZoLwrb79",
+    tokenDatabase_api5: "AQrnNtUI1H-Vve77UhpCR1knZOUz50MU5HM1vYgfn4WEXGh0Yh6zbUtyUy16"
 }
 
 function convertNumbers2English(string) {

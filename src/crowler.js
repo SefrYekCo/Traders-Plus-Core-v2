@@ -83,6 +83,13 @@ function getStoppedStocks() {
                 console.log(e)
             }
         }
+        for (const element of $('table')["6"].children["3"].childNodes) {
+            try {
+                stoppedStocks.push(element.children["3"].children["0"].data)
+            } catch (e) {
+                console.log(e)
+            }
+        }
         getStockDetails(stoppedStocks)
 
     }).catch(err => {

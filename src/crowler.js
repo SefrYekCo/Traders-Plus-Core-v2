@@ -90,7 +90,7 @@ function getStoppedStocks() {
                 console.log(e)
             }
         }
-        getStockDetails(stoppedStocks)
+     	 return  getStockDetails(stoppedStocks);
 
     }).catch(err => {
         console.log(err)
@@ -126,6 +126,7 @@ function getStockDetails(stoppedStocks) {
         })
 
     }
+  return;
 }
 
 function getNewsDetails(url, title, message, date_time, image) {

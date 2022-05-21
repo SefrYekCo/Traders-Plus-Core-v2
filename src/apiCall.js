@@ -305,6 +305,31 @@ var getFaraBourse = () => {
 }
 
 
+const getAndSaveTetherStatus = async () => {
+    try {
+        const { data: { data: { currencies: { USDT } } } } = await axios({
+            method: 'get',
+            url: urls.tetherStatus
+        });
+        redisManager.cacheData(keys.USDTStatus, USDT);
+    } catch (error) {
+        console.log('Exception in getAndSaveTetherStatus() (apiCall.js)', error)
+    }
+}
+
+const getAndSaveTetherHistory = async () => {
+    try {
+        const { data: { data: { prices } } } = await axios({
+            method: 'get',
+            url: urls.tetherChart
+        });
+        redisManager.cacheData(keys.USDTHistory, prices.slice(-45));
+    } catch (error) {
+        console.log('Exception in getAndSaveTetherHistory() (apiCall.js)', error)
+    }
+}
+
+
 module.exports = {
 
     getCurrencies,
@@ -317,6 +342,7 @@ module.exports = {
     getAndSaveCryptoHistoryDataV2,
     getAndSaveWeatherForecast,
     getNews,
-    getAndSaveHedgeFundsRank
-
+    getAndSaveHedgeFundsRank,
+    getAndSaveTetherStatus,
+    getAndSaveTetherHistory
 }

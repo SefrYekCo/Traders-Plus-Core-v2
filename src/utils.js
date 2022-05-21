@@ -27,8 +27,9 @@ const keys = {
     cryptoHistoryV2: 'cryptoHistoryV2',
     historyData: 'history_data',
     weatherForecast: 'weather_forecast',
-    hedgeFundRanks: 'hedge_funds_rank'
-
+    hedgeFundRanks: 'hedge_funds_rank',
+    USDTStatus: 'usdt_status',
+    USDTHistory: 'usdt_history'
 }
 
 const urls = {
@@ -44,7 +45,9 @@ const urls = {
     cryptoHistoryV1: coinAPIBaseURL + "v1/exchangerate/",
     cryptoHistoryV2: tokenDatabaseAPIBaseURL + "v1/indices/vwap5/ohlcv",
     nomiceURl: nomiceBaseURl + "v1/currencies/ticker?key=50640cf10da922ef2bc3b286e40fb5363b34389b&ids=" + curencies + "&interval=1d&convert=USDT",
-    weatherForecast: tseBaseURLV2 + "weatherforecast"
+    weatherForecast: tseBaseURLV2 + "weatherforecast",
+    tetherChart: "https://api.tetherland.com/chart",
+    tetherStatus: "https://api.tetherland.com/currencies"
 
 }
 const apiTokens = {
@@ -76,7 +79,7 @@ function convertArabicToPersian(string) {
     return string.replace("ي", "ی").replace("ك", "ک").replace("آ", "ا")
 }
 
-function getPersianDate(date){
+function getPersianDate(date) {
     let week = Array("يكشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنج شنبه", "جمعه", "شنبه")
     let months = Array("فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "ابان", "اذر", "دی", "بهمن", "اسفند");
     let stringArray = date.split(/(\s+)/);

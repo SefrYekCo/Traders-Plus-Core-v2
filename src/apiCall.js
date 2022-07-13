@@ -204,7 +204,7 @@ function getAndSaveWeatherForecast() {
 }
 
 var getStocks = () => {
-    crowler.getStoppedStocks()
+    // crowler.getStoppedStocks()
 
     axios({
         method: 'get',

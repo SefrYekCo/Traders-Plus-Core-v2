@@ -18,12 +18,18 @@ cron.schedule(process.env.CRON_SCHEDULE || '*/30 * * * * *', function () {
     apiCall.getAndSaveWeatherForecast()
     apiCall.getCryptos()
     apiCall.getIndexes()
-    apiCall.getStocks()
     apiCall.getCurrencies()
     apiCall.getFaraBourse()
     //apiCall.getStocksV2()
     console.log('---------------------');
     console.log('Running Cron Job Every Min  --  ' + currenct.getHours() + ':' + currenct.getMinutes() + ':' + currenct.getSeconds());
+});
+
+cron.schedule( '*/59 * * * * *', function () {
+    var currenct = new Date()
+    apiCall.getStocks()
+    console.log('---------STOCKS------------');
+    console.log('Running stocks --  ' + currenct.getHours() + ':' + currenct.getMinutes() + ':' + currenct.getSeconds());
 });
 
 

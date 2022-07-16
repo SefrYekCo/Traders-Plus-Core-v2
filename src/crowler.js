@@ -90,6 +90,7 @@ function getStoppedStocks() {
                 console.log(e)
             }
         }
+    
      	 return  getStockDetails(stoppedStocks);
 
     }).catch(err => {
@@ -99,7 +100,7 @@ function getStoppedStocks() {
 
 function getStockDetails(stoppedStocks) {
     for (const item of stoppedStocks) {
-        console.log(item);
+
         index.getData(encodeURI(urls.stockDetails  + item)).then(response => {
             if (response.status === 200) {
                 let simpleModel = StockModel(response.data.name, response.data.full_name, response.data.namad_code, response.data.instance_code, response.data.state,

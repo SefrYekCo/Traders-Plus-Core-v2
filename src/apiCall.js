@@ -91,8 +91,8 @@ var mapingIndexList = (indexes) => {
 }
 
 var getNews = () => {
-    crowler.getNewsFromCrowler()
-    /*    axios({
+    // crowler.getNewsFromCrowler()
+         axios({
             method: 'get',
             url: urls.news
         }).then(function (response) {
@@ -104,7 +104,7 @@ var getNews = () => {
             console.log('news count: ' + history.length)
         }).catch(function (error) {
             console.log(error);
-        })*/
+        })
 }
 var getAndSaveHedgeFundsRank = () => {
     crowler.getHedgeFundsRanks()

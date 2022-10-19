@@ -90,12 +90,24 @@ function getStoppedStocks() {
                 console.log(e)
             }
         }
-    
+        console.log(stoppedStocks ," stop STOCKS ----------------------------------------");
      	 return  getStockDetails(stoppedStocks);
 
     }).catch(err => {
         console.log(err)
     })
+}
+
+const stopedStocksFromSorceArena = (stocks) => {
+    try {
+        const stopStocksName = []
+        const stopStocks = stocks.filter(item => item.state !== "مجاز")
+        stopStocks.map((item) => {return stopStocksName.push(item.name)})
+        console.log("-------stopStocks--------" ,stopStocksName);
+        return getStockDetails(stopStocksName)
+    } catch (err) {
+        
+    }
 }
 
 function getStockDetails(stoppedStocks) {
@@ -167,5 +179,6 @@ function getNewsDetails(url, title, message, date_time, image) {
 module.exports = {
     getNewsFromCrowler,
     getHedgeFundsRanks,
-    getStoppedStocks
+    getStoppedStocks,
+    stopedStocksFromSorceArena
 }

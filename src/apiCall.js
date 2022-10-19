@@ -204,17 +204,19 @@ function getAndSaveWeatherForecast() {
 }
 
 var getStocks = () => {
-    crowler.getStoppedStocks()
-
+    // crowler.getStoppedStocks()
     axios({
         method: 'get',
         url: urls.stocks
     }).then(function (response) {
         var stocks = JSON.parse(JSON.stringify(response.data))
         var stockList = mapingStockList(stocks)
+        // console.log( "stock list length ---------------------------------" ,stockList.length);
         var stocksWithDetails = stocks.map(i => {
             return FullStockModel(i)
         })
+    crowler.stopedStocksFromSorceArena(stocks)
+
         redisManager.getCachedData(keys.stocksStopped, (status, stocksStopped) => {
             try {
                 for (const item of JSON.parse(stocksStopped)) {
@@ -224,6 +226,7 @@ var getStocks = () => {
             } catch (error) {
 
             }
+            
             redisManager.cacheData(keys.stocks, stocksWithDetails)
         })
         redisManager.getCachedData(keys.stocksListStopped, (status, stocksListStopped) => {
@@ -235,6 +238,7 @@ var getStocks = () => {
             } catch (error) {
 
             }
+            // console.log('stocksLIST cache data ------------------------------------' ,stockList.length);
             redisManager.cacheData(keys.stocksList, stockList)
         })
         console.log('stocks count: ' + stocks.length)

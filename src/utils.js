@@ -1,7 +1,7 @@
 const shamsi = require('jalali-moment')
 
-const baseURL = 'https://www.sourcearena.ir/api/?token=75243df886bbfb64e6962751a91a7873'
-const baseURLNews = 'https://www.sourcearena.ir/api/news.php?token=75243df886bbfb64e6962751a91a7873'
+const baseURL = 'http://www.sourcearena.ir/api/?token=75243df886bbfb64e6962751a91a7873'
+const baseURLNews = 'http://www.sourcearena.ir/api/news.php?token=75243df886bbfb64e6962751a91a7873'
 const tseBaseURL = "http://tsetmc.com/"
 const tseBaseURLV2 = "http://new.tsetmc.com/"
 const coinAPIBaseURL = "https://rest.coinapi.io/"

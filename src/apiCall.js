@@ -56,16 +56,31 @@ var mapingStockList = (stocks) => {
     })
 }
 
+// var mapingCryptoList = (cryptos) => {
+
+//     return cryptos.map(i => {
+//         let p_ch_p_d = i["1d"]["price_change_pct"]
+//         return CryptoModel(
+//             i.symbol,
+//             i.name,
+//             i.logo_url,
+//             i.price,
+//             i["1d"]["price_change_pct"],
+//             i.market_cap,
+//         )
+//     })
+// }
+
 var mapingCryptoList = (cryptos) => {
 
     return cryptos.map(i => {
-        let p_ch_p_d = i["1d"]["price_change_pct"]
+        
         return CryptoModel(
             i.symbol,
             i.name,
-            i.logo_url,
+            i.icon,
             i.price,
-            i["1d"]["price_change_pct"],
+            i.change_percent_24h,
             i.market_cap,
         )
     })
@@ -139,13 +154,28 @@ var getIndexes = () => {
     })
 }
 
+// var getCryptos = () => {
+//     axios({
+//         method: 'get',
+//         url: urls.nomiceURl
+//     }).then(function (response) {
+//         var cryptos = JSON.parse(JSON.stringify(response.data))
+//         cryptos = cryptos.filter(obj => obj.status != "dead" && obj.status != "inactive")
+//         var tempCryptos = mapingCryptoList(cryptos)
+//         redisManager.cacheData(keys.cryptos, tempCryptos)
+//         console.log('cryptos count: ' + cryptos.length)
+//     }).catch(function (error) {
+//         console.log(error.response.data);
+//     })
+// }
+
 var getCryptos = () => {
     axios({
         method: 'get',
-        url: urls.nomiceURl
+        url: urls.cryptos
     }).then(function (response) {
         var cryptos = JSON.parse(JSON.stringify(response.data))
-        cryptos = cryptos.filter(obj => obj.status != "dead" && obj.status != "inactive")
+        // cryptos = cryptos.filter(obj => obj.status != "dead" && obj.status != "inactive")
         var tempCryptos = mapingCryptoList(cryptos)
         redisManager.cacheData(keys.cryptos, tempCryptos)
         console.log('cryptos count: ' + cryptos.length)

@@ -175,12 +175,12 @@ var getCryptos = () => {
         url: urls.cryptos
     }).then(function (response) {
         var cryptos = JSON.parse(JSON.stringify(response.data))
-        // cryptos = cryptos.filter(obj => obj.status != "dead" && obj.status != "inactive")
-        var tempCryptos = mapingCryptoList(cryptos)
+        console.log("cryptossssssssssssssssssssssssss" ,cryptos.data);
+        var tempCryptos = mapingCryptoList(cryptos.data)
         redisManager.cacheData(keys.cryptos, tempCryptos)
-        console.log('cryptos count: ' + cryptos.length)
+        console.log('cryptos count: ' + cryptos.data.length)
     }).catch(function (error) {
-        console.log(error.response.data);
+        console.log(error);
     })
 }
 

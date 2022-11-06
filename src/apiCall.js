@@ -17,7 +17,7 @@ const urls = utils.urls
 const keys = utils.keys
 
 
-const metalSlugs = ["SEKEB", "SEKEE", "NIM", "ROB", "GERAMI", "MESGHAL", "GERAM24", "GERAM18", "ONS", "PALLADIUM", "SILVER", "PLATINUM", "OIL"];
+const metalSlugs = ["SEKE_BAHAR", "SEKE_EMAMI", "SEKE_NIM", "SEKE_ROB", "SEKE_GERAMI", "TALA_MESGHAL", "TALA_24", "TALA_18", "ONS", "PALA", "ONSNOGHRE", "ONSPALA", "TALADAST2", "NOGHRE999", "GC8", "GC9", "GC13", "GC15" ,"GC14" ];
 var extractMetals = (currencies) => {
     var metals = currencies.filter(obj => metalSlugs.includes(obj.slug))
     return metals.map(i => {
@@ -25,8 +25,9 @@ var extractMetals = (currencies) => {
     })
 }
 
+const cryptoSlugs = ["CRYPTO-AVALANCHE" ,"CRYPTO-SOLANA" ,"CRYPTO-POLKADOT" ,"CRYPTO-TRON" ,"CRYPTO-BITCOIN-CASH" ,"CRYPTO-DOGECOIN" ,"CRYPTO-BINANCE-COIN" ,"CRYPTO-CARDANO" ,"CRYPTO-TETHER-IRR" ,"CRYPTO-TETHER" ,"GC11" ,"GC10" ,"GC3" ,"GC1"]
 var extractCurrencies = (allcurrencies) => {
-    var currencies = allcurrencies.filter(obj => (!metalSlugs.includes(obj.slug)) && obj.slug.length !== 0)
+    var currencies = allcurrencies.filter(obj => (!metalSlugs.includes(obj.slug)) && !cryptoSlugs.includes(obj.slug) && obj.slug.length !== 0 )
     return currencies.map(i => {
         return CurrencyModel(i)
     })

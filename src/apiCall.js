@@ -246,32 +246,32 @@ var getStocks = () => {
         var stocksWithDetails = stocks.map(i => {
             return FullStockModel(i)
         })
-    crowler.stopedStocksFromSorceArena(stocks)
+    // crowler.stopedStocksFromSorceArena(stocks)
 
-        redisManager.getCachedData(keys.stocksStopped, (status, stocksStopped) => {
-            try {
-                for (const item of JSON.parse(stocksStopped)) {
-                    stocksWithDetails = stocksWithDetails.filter((a) => a.name !== item.name)
-                    stocksWithDetails.push(item)
-                }
-            } catch (error) {
+        // redisManager.getCachedData(keys.stocksStopped, (status, stocksStopped) => {
+        //     try {
+        //         for (const item of JSON.parse(stocksStopped)) {
+        //             stocksWithDetails = stocksWithDetails.filter((a) => a.name !== item.name)
+        //             stocksWithDetails.push(item)
+        //         }
+        //     } catch (error) {
 
-            }
+        //     }
             
-            redisManager.cacheData(keys.stocks, stocksWithDetails)
-        })
-        redisManager.getCachedData(keys.stocksListStopped, (status, stocksListStopped) => {
-            try {
-                for (const item of JSON.parse(stocksListStopped)) {
-                    stockList = stockList.filter((a) => a.name !== item.name)
-                    stockList.push(item)
-                }
-            } catch (error) {
+        // })
+        redisManager.cacheData(keys.stocks, stocksWithDetails)
+        // redisManager.getCachedData(keys.stocksListStopped, (status, stocksListStopped) => {
+        //     try {
+        //         for (const item of JSON.parse(stocksListStopped)) {
+        //             stockList = stockList.filter((a) => a.name !== item.name)
+        //             stockList.push(item)
+        //         }
+        //     } catch (error) {
 
-            }
-            // console.log('stocksLIST cache data ------------------------------------' ,stockList.length);
-            redisManager.cacheData(keys.stocksList, stockList)
-        })
+        //     }
+        //  console.log('stocksLIST cache data ------------------------------------' ,stockList.length);
+        // })
+        redisManager.cacheData(keys.stocksList, stockList)
         console.log('stocks count: ' + stocks.length)
     }).catch(function (error) {
         console.log(error);

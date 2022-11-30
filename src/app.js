@@ -39,7 +39,7 @@ cron.schedule( '*/59 * * * * *', function () {
     console.log('Running stocks --  ' + currenct.getHours() + ':' + currenct.getMinutes() + ':' + currenct.getSeconds());
 });
 
-cron.schedule( '*/60 * * * * *', function () {
+cron.schedule( '*/60 * * * * ', function () {
     var currenct = new Date()
     apiCall.getAndSaveRssOfBourse()
     apiCall.getAndSaveRssOfCar()

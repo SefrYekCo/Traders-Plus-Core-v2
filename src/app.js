@@ -8,6 +8,13 @@ const PORT = process.env.PORT || 3000
 var app = express()
 getAndSaveCryptoHistoryData("12hour")
 getAndSaveCryptoHistoryData("1hour")
+apiCall.getAndSaveRssOfBourse()
+apiCall.getAndSaveRssOfCar()
+apiCall.getAndSaveRssOfHousing()
+apiCall.getAndSaveRssOfCryptos()
+apiCall.getAndSaveRssOfLastNews()
+apiCall.getAndSaveRssOfMostViews()
+apiCall.getAndSaveRssOfCurrencies()
 
 apiCall.getAndSaveWeatherForecast()
 apiCall.getNews()
@@ -30,6 +37,19 @@ cron.schedule( '*/59 * * * * *', function () {
     apiCall.getStocks()
     console.log('---------STOCKS------------');
     console.log('Running stocks --  ' + currenct.getHours() + ':' + currenct.getMinutes() + ':' + currenct.getSeconds());
+});
+
+cron.schedule( '*/60 * * * * *', function () {
+    var currenct = new Date()
+    apiCall.getAndSaveRssOfBourse()
+    apiCall.getAndSaveRssOfCar()
+    apiCall.getAndSaveRssOfHousing()
+    apiCall.getAndSaveRssOfCryptos()
+    apiCall.getAndSaveRssOfLastNews()
+    apiCall.getAndSaveRssOfMostViews()
+    apiCall.getAndSaveRssOfCurrencies()
+    console.log('---------RSS------------');
+    console.log('Running rss --  ' + currenct.getHours() + ':' + currenct.getMinutes() + ':' + currenct.getSeconds());
 });
 
 

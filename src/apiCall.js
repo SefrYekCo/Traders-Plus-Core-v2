@@ -12,6 +12,7 @@ const crowler = require('./crowler')
 const redisManager = require('./redisManager')
 const irStock = require('./irStocksAPI')
 const utils = require('./utils')
+const cheerio = require('cheerio')
 
 const urls = utils.urls
 const keys = utils.keys
@@ -56,6 +57,7 @@ var mapingStockList = (stocks) => {
         )
     })
 }
+
 
 // var mapingCryptoList = (cryptos) => {
 
@@ -364,9 +366,279 @@ const getAndSaveTetherHistory = async () => {
     }
 }
 
+const getAndSaveRssOfBourse = async () => {
+    try {
+        const {data} = await axios({
+            method:"get",
+            url: urls.rssBourse
+        })
+
+        const $ = cheerio.load(data)
+
+        const arr = []
+
+        $("item").map((i ,el) => {
+            const title = $(el).find('title').text();
+            const description = $(el).find('description').text();
+            const link = $(el).find('guid').text()
+            const image = $(el).find('enclosure').attr("url");
+            const dateText = $(el).find('pubDate').text();
+            const date = new Date(dateText).toISOString()
+            return(
+                arr.push({
+                    title,
+                    description,
+                    link,
+                    image,
+                    date
+                })
+            )
+        })
+
+        if(arr.length > 0 && arr[0].title !== undefined){
+            console.log("Bourse Rss updated");
+        }
+
+        redisManager.cacheData(keys.BourseRss ,arr);
+
+    } catch (err) {
+        console.log( "error in bourse Rss updating" ,err);
+    }
+}
+
+const getAndSaveRssOfCar = async () => {
+    try {
+        const {data} = await axios({
+            method:"get",
+            url: urls.rssCar
+        })
+        const $ = cheerio.load(data)
+        const arr = []
+
+        $("item").map((i ,el) => {
+            const title = $(el).find('title').text();
+            const description = $(el).find('description').text();
+            const link = $(el).find('guid').text();
+            const image = $(el).find('enclosure').attr("url");
+            const dateText = $(el).find('pubDate').text();
+            const date = new Date(dateText).toISOString()
+            return(
+                arr.push({
+                    title,
+                    description,
+                    link,
+                    image,
+                    date
+                })
+            )
+        })
+
+        if(arr.length > 0 && arr[0].title !== undefined){
+            console.log("Car Rss updated");
+        }
+
+        redisManager.cacheData(keys.carRss ,arr);
+
+    } catch (err) {
+        console.log( "error in car Rss updating" ,err);
+    }
+}
+
+const getAndSaveRssOfCurrencies = async () => {
+    try {
+        const {data} = await axios({
+            method:"get",
+            url: urls.rssCurrency
+        })
+        const $ = cheerio.load(data)
+        const arr = []
+
+        $("item").map((i ,el) => {
+            const title = $(el).find('title').text();
+            const description = $(el).find('description').text();
+            const link = $(el).find('guid').text();
+            const image = $(el).find('enclosure').attr("url");
+            const dateText = $(el).find('pubDate').text();
+            const date = new Date(dateText).toISOString()
+            return(
+                arr.push({
+                    title,
+                    description,
+                    link,
+                    image,
+                    date
+                })
+            )
+        })
+
+        if(arr.length > 0 && arr[0].title !== undefined){
+            console.log("Currencies Rss updated");
+        }
+
+        redisManager.cacheData(keys.currenciesRss ,arr);
+
+    } catch (err) {
+        console.log( "error in currencies Rss updating" ,err);
+    }
+}
+
+const getAndSaveRssOfCryptos = async () => {
+    try {
+        const {data} = await axios({
+            method:"get",
+            url: urls.rssCrypto
+        })
+        const $ = cheerio.load(data)
+        const arr = []
+
+        $("item").map((i ,el) => {
+            const title = $(el).find('title').text();
+            const description = $(el).find('description').text();
+            const link = $(el).find('guid').text();
+            const image = $(el).find('enclosure').attr("url");
+            const dateText = $(el).find('pubDate').text();
+            const date = new Date(dateText).toISOString()
+            return(
+                arr.push({
+                    title,
+                    description,
+                    link,
+                    image,
+                    date
+                })
+            )
+        })
+
+        if(arr.length > 0 && arr[0].title !== undefined){
+            console.log("Cryptos Rss updated");
+        }
+
+        redisManager.cacheData(keys.cryptoRss ,arr);
+
+    } catch (err) {
+        console.log( "error in cryptos Rss updating" ,err);
+    }
+}
+
+const getAndSaveRssOfMostViews = async () => {
+    try {
+        const {data} = await axios({
+            method:"get",
+            url: urls.rssMostViews
+        })
+        const $ = cheerio.load(data)
+        const arr = []
+
+        $("item").map((i ,el) => {
+            const title = $(el).find('title').text();
+            const description = $(el).find('description').text();
+            const link = $(el).find('guid').text();
+            const image = $(el).find('enclosure').attr("url");
+            const dateText = $(el).find('pubDate').text();
+            const date = new Date(dateText).toISOString()
+            return(
+                arr.push({
+                    title,
+                    description,
+                    link,
+                    image,
+                    date
+                })
+            )
+        })
+
+        if(arr.length > 0 && arr[0].title !== undefined){
+            console.log("Most veiw Rss updated");
+        }
+
+        redisManager.cacheData(keys.mostViewRss ,arr);
+
+    } catch (err) {
+        console.log( "error in Most veiw Rss updating" ,err);
+    }
+}
+
+const getAndSaveRssOfLastNews = async () => {
+    try {
+        const {data} = await axios({
+            method:"get",
+            url: urls.rssLastNews
+        })
+        const $ = cheerio.load(data)
+        const arr = []
+
+        $("item").map((i ,el) => {
+            const title = $(el).find('title').text();
+            const description = $(el).find('description').text();
+            const link = $(el).find('guid').text();
+            const image = $(el).find('enclosure').attr("url");
+            const dateText = $(el).find('pubDate').text();
+            const date = new Date(dateText).toISOString()
+            return(
+                arr.push({
+                    title,
+                    description,
+                    link,
+                    image,
+                    date
+                })
+            )
+        })
+
+        if(arr.length > 0 && arr[0].title !== undefined){
+            console.log("lastNews Rss updated");
+        }
+
+        redisManager.cacheData(keys.lastNewsRss ,arr);
+
+    } catch (err) {
+        console.log( "error in lastNews Rss updating" ,err);
+    }
+}
+
+const getAndSaveRssOfHousing = async () => {
+    try {
+        const {data} = await axios({
+            method:"get",
+            url: urls.rssHousing
+        })
+        const $ = cheerio.load(data)
+        const arr = []
+
+        $("item").map((i ,el) => {
+            const title = $(el).find('title').text();
+            const description = $(el).find('description').text();
+            const link = $(el).find('guid').text();
+            const image = $(el).find('enclosure').attr("url");
+            const dateText = $(el).find('pubDate').text();
+            const date = new Date(dateText).toISOString()
+            return(
+                arr.push({
+                    title,
+                    description,
+                    link,
+                    image,
+                    date
+                })
+            )
+        })
+
+        if(arr.length > 0 && arr[0].title !== undefined){
+            console.log("housin Rss updated");
+        }
+
+        redisManager.cacheData(keys.housingRss ,arr);
+
+    } catch (err) {
+        console.log( "error in housin Rss updating" ,err);
+    }
+}
+
+
+
+
 
 module.exports = {
-
     getCurrencies,
     getIndexes,
     getCryptos,
@@ -379,5 +651,12 @@ module.exports = {
     getNews,
     getAndSaveHedgeFundsRank,
     getAndSaveTetherStatus,
-    getAndSaveTetherHistory
+    getAndSaveTetherHistory,
+    getAndSaveRssOfBourse,
+    getAndSaveRssOfCar,
+    getAndSaveRssOfCurrencies,
+    getAndSaveRssOfCryptos,
+    getAndSaveRssOfMostViews,
+    getAndSaveRssOfLastNews,
+    getAndSaveRssOfHousing
 }

@@ -29,7 +29,14 @@ const keys = {
     weatherForecast: 'weather_forecast',
     hedgeFundRanks: 'hedge_funds_rank',
     USDTStatus: 'usdt_status',
-    USDTHistory: 'usdt_history'
+    USDTHistory: 'usdt_history',
+    BourseRss: 'bourse_rss',
+    carRss: 'car_rss',
+    housingRss: 'housing_rss',
+    currenciesRss: 'currencies_rss',
+    cryptoRss: 'crypto_rss',
+    lastNewsRss: 'last_news_rss',
+    mostViewRss: 'most_view_rss'
 }
 
 const urls = {
@@ -47,9 +54,17 @@ const urls = {
     nomiceURl: nomiceBaseURl + "v1/currencies/ticker?key=50640cf10da922ef2bc3b286e40fb5363b34389b&ids=" + curencies + "&interval=1d&convert=USDT",
     weatherForecast: tseBaseURLV2 + "weatherforecast",
     tetherChart: "https://api.tetherland.com/chart",
-    tetherStatus: "https://api.tetherland.com/currencies"
+    tetherStatus: "https://api.tetherland.com/currencies",
+    rssBourse:"https://www.fardayeeghtesad.com/rss/tp/20",
+    rssCrypto:"https://www.fardayeeghtesad.com/rss/tp/57",
+    rssCurrency:"https://www.fardayeeghtesad.com/rss/tp/56",
+    rssCar:"https://www.fardayeeghtesad.com/rss/tp/19",
+    rssHousing:'https://www.fardayeeghtesad.com/rss/tp/71',
+    rssMostViews:"https://www.fardayeeghtesad.com/rss/pl/232",
+    rssLastNews:"https://www.fardayeeghtesad.com/rss"
 
 }
+
 const apiTokens = {
     //https://docs.coinapi.io/
     coin_api0: "16E3ED0A-FDFB-47D8-B7A4-0B718224568D",

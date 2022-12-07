@@ -387,10 +387,10 @@ const getAndSaveRssOfBourse = async () => {
             return(
                 arr.push({
                     title,
-                    description,
+                    content:description,
                     link,
-                    image,
-                    date
+                    file:image,
+                    createdAt:date
                 })
             )
         })
@@ -425,10 +425,10 @@ const getAndSaveRssOfCar = async () => {
             return(
                 arr.push({
                     title,
-                    description,
+                    content:description,
                     link,
-                    image,
-                    date
+                    file:image,
+                    createdAt:date
                 })
             )
         })
@@ -463,10 +463,10 @@ const getAndSaveRssOfCurrencies = async () => {
             return(
                 arr.push({
                     title,
-                    description,
+                    content:description,
                     link,
-                    image,
-                    date
+                    file:image,
+                    createdAt:date
                 })
             )
         })
@@ -501,10 +501,10 @@ const getAndSaveRssOfCryptos = async () => {
             return(
                 arr.push({
                     title,
-                    description,
+                    content:description,
                     link,
-                    image,
-                    date
+                    file:image,
+                    createdAt:date
                 })
             )
         })
@@ -539,10 +539,10 @@ const getAndSaveRssOfMostViews = async () => {
             return(
                 arr.push({
                     title,
-                    description,
+                    content:description,
                     link,
-                    image,
-                    date
+                    file:image,
+                    createdAt:date
                 })
             )
         })
@@ -577,10 +577,10 @@ const getAndSaveRssOfLastNews = async () => {
             return(
                 arr.push({
                     title,
-                    description,
+                    content:description,
                     link,
-                    image,
-                    date
+                    file:image,
+                    createdAt:date
                 })
             )
         })
@@ -615,10 +615,10 @@ const getAndSaveRssOfHousing = async () => {
             return(
                 arr.push({
                     title,
-                    description,
+                    content:description,
                     link,
-                    image,
-                    date
+                    file:image,
+                    createdAt:date
                 })
             )
         })

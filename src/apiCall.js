@@ -232,7 +232,7 @@ function getAndSaveWeatherForecast() {
         redisManager.cacheData(keys.weatherForecast, history)
         console.log('weatherforecast count: ' + history.length)
     }).catch(function (error) {
-        console.log(error.response.data);
+        console.log(error.response?.data);
     })
 }
 

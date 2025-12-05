@@ -1,7 +1,9 @@
 const redis = require('redis')
 
-const REDIS_PORT = process.env.PORT || 6379
-const client = redis.createClient(REDIS_PORT)
+const REDIS_HOST = process.env.REDIS_HOST || "redis"; // container name or network alias
+const REDIS_PORT = process.env.REDIS_PORT || 6379;
+
+const client = redis.createClient(REDIS_PORT, REDIS_HOST);
 
 client.on("connect", () => {
     console.log(

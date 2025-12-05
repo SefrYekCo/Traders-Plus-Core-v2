@@ -31,5 +31,6 @@ COPY --from=build /app /app
 EXPOSE 3000
 
 # Start the app with PM2 Runtime
-CMD ["pm2-runtime", "src/app.js"]
+CMD ["pm2-runtime", "src/eco.config.js", "--env", "production"]
+
 

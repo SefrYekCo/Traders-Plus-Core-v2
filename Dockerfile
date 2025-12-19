@@ -1,36 +1,22 @@
-##############################
-# 1️⃣ BUILD STAGE
-##############################
-FROM node:18 AS build
+# Use official Node.js LTS
+FROM node:20.12.2
 
-WORKDIR /app
+# Set working directory
+WORKDIR /usr/src/app
 
-# Copy only package files first (better caching)
+# Copy dependency definitions
 COPY package*.json ./
 
-# Install only production dependencies
+# Install production dependencies only
 RUN npm install --production
 
-# Copy the rest of the source code
+# Copy the rest of the application code
 COPY . .
 
-##############################
-# 2️⃣ PRODUCTION STAGE
-##############################
-FROM node:18-alpine
+RUN npm install -g pm2@5.1.0
 
-WORKDIR /app
+# Expose your app port (from config.js → 5000)
+EXPOSE 5000
 
-# Install PM2 globally
-RUN npm install -g pm2
-
-# Copy built production files and node_modules from builder stage
-COPY --from=build /app /app
-
-# Expose your production port
-EXPOSE 3000
-
-# Start the app with PM2 Runtime
+# Start the app with pm2-runtime + ecosystem config
 CMD ["pm2-runtime", "src/eco.config.js", "--env", "production"]
-
-

@@ -1,4 +1,3 @@
-require('./blockRunflare');
 const cron = require('node-cron');
 const express = require('express');
 const apiCall = require('./apiCall');
